@@ -128,7 +128,7 @@ class PortfolioSection extends StatelessWidget {
         children: [
           // Portfolio Image Section (Top 60%)
           Expanded(
-            flex: 3,
+            flex: 7,
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -148,7 +148,7 @@ class PortfolioSection extends StatelessWidget {
 
           // Portfolio Content Section (Bottom 40%)
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
               padding: const EdgeInsets.all(20),
               child: Column(
