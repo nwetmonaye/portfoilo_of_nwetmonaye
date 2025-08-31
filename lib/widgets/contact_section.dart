@@ -21,7 +21,7 @@ class ContactSection extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        height: 400, // Fixed height to prevent layout issues
+        height: 300, // Fixed height to prevent layout issues
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,9 +65,7 @@ class ContactSection extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 200,
-                  ), // Fixed spacing instead of Spacer
+                  const SizedBox(height: 80), // Fixed spacing instead of Spacer
                   // Copyright
                   Text(
                     'COPYRIGHT 2025',
@@ -99,7 +97,7 @@ class ContactSection extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 80),
 
                   // Social Media Icons
                   Row(
@@ -113,9 +111,7 @@ class ContactSection extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(
-                    height: 200,
-                  ), // Fixed spacing instead of Spacer
+                  const SizedBox(height: 80), // Fixed spacing instead of Spacer
                   // Made By Text
                   Text(
                     'MADE BY',
