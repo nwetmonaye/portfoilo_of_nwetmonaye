@@ -9,7 +9,7 @@ class WhatIDoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(color: KStyle.c25BlackColor),
+      decoration: BoxDecoration(color: KStyle.c26BlackColor),
       padding: const EdgeInsets.all(40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +43,7 @@ class WhatIDoSection extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: 30,
             mainAxisSpacing: 30,
-            childAspectRatio: 2.4,
+            childAspectRatio: 2.3,
             children: [
               _buildServiceCard(
                 'CROSS-PLATFORM APP DEVELOPMENT',
@@ -80,7 +80,7 @@ class WhatIDoSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: KStyle.c26BlackColor,
+        color: KStyle.cWhiteColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -89,8 +89,8 @@ class WhatIDoSection extends StatelessWidget {
           // Star Icon
           SvgPicture.asset(
             'assets/icons/star.svg',
-            height: 20,
-            width: 20,
+            height: 30,
+            width: 30,
             colorFilter: ColorFilter.mode(
               KStyle.cPinkOrgColor,
               BlendMode.srcIn,

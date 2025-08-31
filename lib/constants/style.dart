@@ -5,6 +5,7 @@ class KStyle {
   static Color cSelectedColor = const Color(0xFFEBF0FE);
   static Color c26BlackColor = const Color(0xFF262626);
   static Color c25BlackColor = const Color(0xFF252525);
+  static Color cWhiteColor = const Color(0xFFFFFFFF);
 
   static TextStyle headingTextStyle = const TextStyle(
     fontSize: 110,
