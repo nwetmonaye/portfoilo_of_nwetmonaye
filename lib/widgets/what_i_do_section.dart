@@ -41,9 +41,9 @@ class WhatIDoSection extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 3,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 30,
-            childAspectRatio: 2.3,
+            crossAxisSpacing: 40,
+            mainAxisSpacing: 40,
+            childAspectRatio: 2.1,
             children: [
               _buildServiceCard(
                 'CROSS-PLATFORM APP DEVELOPMENT',
