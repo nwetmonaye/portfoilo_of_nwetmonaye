@@ -50,6 +50,18 @@ class WorkExperienceSection extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: KStyle.cPinkOrgColor,
                       shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: KStyle.cPinkOrgColor.withOpacity(0.6),
+                          blurRadius: 15,
+                          spreadRadius: 2,
+                        ),
+                        BoxShadow(
+                          color: KStyle.cPinkOrgColor.withOpacity(0.3),
+                          blurRadius: 25,
+                          spreadRadius: 5,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -89,8 +101,9 @@ class WorkExperienceSection extends StatelessWidget {
                   height: 20,
                   indicator: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[700],
+                      color: Colors.grey[800],
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey[600]!, width: 1),
                     ),
                   ),
                 ),
@@ -131,8 +144,9 @@ class WorkExperienceSection extends StatelessWidget {
                   height: 20,
                   indicator: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[700],
+                      color: Colors.grey[800],
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey[600]!, width: 1),
                     ),
                   ),
                 ),
@@ -174,8 +188,9 @@ class WorkExperienceSection extends StatelessWidget {
                   height: 20,
                   indicator: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[700],
+                      color: Colors.grey[800],
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey[600]!, width: 1),
                     ),
                   ),
                 ),
