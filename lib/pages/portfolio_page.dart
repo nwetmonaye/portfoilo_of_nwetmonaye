@@ -8,6 +8,7 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/profile_section.dart';
 import '../widgets/what_i_do_section.dart';
 import '../widgets/what_did_they_say_section.dart';
+import '../widgets/work_experience_section.dart';
 
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
@@ -63,6 +64,9 @@ class PortfolioView extends StatelessWidget {
 
                   // What Did They Say Section
                   const WhatDidTheySaySection(),
+
+                  // Work Experience Section
+                  const WorkExperienceSection(),
 
                   // TODO: Add other sections here
                   // What I Do Section
