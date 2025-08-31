@@ -6,6 +6,7 @@ import '../bloc/portfolio_state.dart';
 import '../constants/style.dart';
 import '../widgets/navigation_bar.dart';
 import '../widgets/profile_section.dart';
+import '../widgets/what_i_do_section.dart';
 
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
@@ -36,30 +37,36 @@ class PortfolioView extends StatelessWidget {
 
           if (state is PortfolioLoaded) {
             return SingleChildScrollView(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/background.png'),
-                    fit: BoxFit.cover,
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/background.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        // Navigation Section
+                        const CustomNavigationBar(),
+
+                        // Profile Section
+                        const ProfileSection(),
+                      ],
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: [
-                    // Navigation Section
-                    const CustomNavigationBar(),
+                  // What I Do Section
+                  const WhatIDoSection(),
 
-                    // Profile Section
-                    const ProfileSection(),
-
-                    // TODO: Add other sections here
-                    // What I Do Section
-                    // What Did They Say Section
-                    // Work Experience Section
-                    // My Portfolio Section
-                    // Contact Section
-                  ],
-                ),
+                  // TODO: Add other sections here
+                  // What I Do Section
+                  // What Did They Say Section
+                  // Work Experience Section
+                  // My Portfolio Section
+                  // Contact Section
+                ],
               ),
             );
           }
