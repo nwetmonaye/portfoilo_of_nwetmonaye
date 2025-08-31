@@ -36,21 +36,30 @@ class PortfolioView extends StatelessWidget {
 
           if (state is PortfolioLoaded) {
             return SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Navigation Section
-                  const CustomNavigationBar(),
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    // Navigation Section
+                    const CustomNavigationBar(),
 
-                  // Profile Section
-                  const ProfileSection(),
+                    // Profile Section
+                    const ProfileSection(),
 
-                  // TODO: Add other sections here
-                  // What I Do Section
-                  // What Did They Say Section
-                  // Work Experience Section
-                  // My Portfolio Section
-                  // Contact Section
-                ],
+                    // TODO: Add other sections here
+                    // What I Do Section
+                    // What Did They Say Section
+                    // Work Experience Section
+                    // My Portfolio Section
+                    // Contact Section
+                  ],
+                ),
               ),
             );
           }
