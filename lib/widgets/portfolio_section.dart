@@ -41,7 +41,7 @@ class PortfolioSection extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: 40,
             mainAxisSpacing: 40,
-            childAspectRatio: 1.5,
+            childAspectRatio: 1.2,
             children: [
               _buildPortfolioCard(
                 'Tun Commercial Bank',
@@ -143,7 +143,7 @@ class PortfolioSection extends StatelessWidget {
             flex: 7,
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -162,7 +162,7 @@ class PortfolioSection extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

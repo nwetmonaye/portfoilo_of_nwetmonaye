@@ -7,7 +7,9 @@ import '../bloc/portfolio_state.dart';
 import '../constants/style.dart';
 
 class CustomNavigationBar extends StatelessWidget {
-  const CustomNavigationBar({super.key});
+  final Function(String) onNavItemTap;
+
+  const CustomNavigationBar({super.key, required this.onNavItemTap});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class CustomNavigationBar extends StatelessWidget {
             color: KStyle.c25BlackColor,
             borderRadius: BorderRadius.circular(50),
           ),
-          margin: const EdgeInsets.all(20),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             children: [
               // Flower Icon
@@ -42,26 +44,45 @@ class CustomNavigationBar extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildNavItem(context, 'HOME', 'home', currentSection),
-                    const SizedBox(width: 40),
                     _buildNavItem(
                       context,
-                      'FEATURE',
-                      'feature',
+                      'Profile',
+                      'Profile',
                       currentSection,
                     ),
                     const SizedBox(width: 40),
                     _buildNavItem(
                       context,
-                      'EXPERIENCE',
-                      'experience',
+                      'What I Do',
+                      'What I Do',
                       currentSection,
                     ),
                     const SizedBox(width: 40),
                     _buildNavItem(
                       context,
-                      'PORTFOLIO',
-                      'portfolio',
+                      'Testimonials',
+                      'Testimonials',
+                      currentSection,
+                    ),
+                    const SizedBox(width: 40),
+                    _buildNavItem(
+                      context,
+                      'Work Experience',
+                      'Work Experience',
+                      currentSection,
+                    ),
+                    const SizedBox(width: 40),
+                    _buildNavItem(
+                      context,
+                      'Portfolio',
+                      'Portfolio',
+                      currentSection,
+                    ),
+                    const SizedBox(width: 40),
+                    _buildNavItem(
+                      context,
+                      'Contact',
+                      'Contact',
                       currentSection,
                     ),
                   ],
@@ -104,6 +125,7 @@ class CustomNavigationBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        onNavItemTap(section);
         context.read<PortfolioBloc>().add(NavigateToSection(section));
       },
       child: Text(

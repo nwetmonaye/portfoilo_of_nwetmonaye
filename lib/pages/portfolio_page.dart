@@ -24,8 +24,49 @@ class PortfolioPage extends StatelessWidget {
   }
 }
 
-class PortfolioView extends StatelessWidget {
+class PortfolioView extends StatefulWidget {
   const PortfolioView({super.key});
+
+  @override
+  State<PortfolioView> createState() => _PortfolioViewState();
+}
+
+class _PortfolioViewState extends State<PortfolioView> {
+  late ScrollController _scrollController;
+
+  // Section keys for navigation
+  final GlobalKey _profileKey = GlobalKey();
+  final GlobalKey _whatIDoKey = GlobalKey();
+  final GlobalKey _testimonialsKey = GlobalKey();
+  final GlobalKey _workExperienceKey = GlobalKey();
+  final GlobalKey _portfolioKey = GlobalKey();
+  final GlobalKey _contactKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToSection(GlobalKey key) {
+    final RenderBox renderBox =
+        key.currentContext!.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero).dy;
+    final scrollPosition =
+        _scrollController.offset + position - 100; // 100px offset for nav bar
+
+    _scrollController.animateTo(
+      scrollPosition,
+      duration: const Duration(milliseconds: 800),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,50 +81,81 @@ class PortfolioView extends StatelessWidget {
           }
 
           if (state is PortfolioLoaded) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/background.png'),
-                        fit: BoxFit.cover,
+            return Stack(
+              children: [
+                // Main scrollable content
+                SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/background.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            // Spacer for fixed navigation bar
+                            const SizedBox(height: 100),
+
+                            // Profile Section
+                            ProfileSection(key: _profileKey),
+                          ],
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        // Navigation Section
-                        const CustomNavigationBar(),
 
-                        // Profile Section
-                        const ProfileSection(),
-                      ],
-                    ),
+                      // What I Do Section
+                      WhatIDoSection(key: _whatIDoKey),
+
+                      // What Did They Say Section
+                      WhatDidTheySaySection(key: _testimonialsKey),
+
+                      // Work Experience Section
+                      WorkExperienceSection(key: _workExperienceKey),
+
+                      // Portfolio Section
+                      PortfolioSection(key: _portfolioKey),
+
+                      // Contact Section
+                      ContactSection(key: _contactKey),
+                    ],
                   ),
-                  // What I Do Section
-                  const WhatIDoSection(),
+                ),
 
-                  // What Did They Say Section
-                  const WhatDidTheySaySection(),
-
-                  // Work Experience Section
-                  const WorkExperienceSection(),
-
-                  // Portfolio Section
-                  const PortfolioSection(),
-
-                  // Contact Section
-                  const ContactSection(),
-
-                  // TODO: Add other sections here
-                  // What I Do Section
-                  // What Did They Say Section
-                  // Work Experience Section
-                  // My Portfolio Section
-                  // Contact Section
-                ],
-              ),
+                // Fixed Navigation Bar
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: CustomNavigationBar(
+                    onNavItemTap: (section) {
+                      switch (section) {
+                        case 'Profile':
+                          _scrollToSection(_profileKey);
+                          break;
+                        case 'What I Do':
+                          _scrollToSection(_whatIDoKey);
+                          break;
+                        case 'Testimonials':
+                          _scrollToSection(_testimonialsKey);
+                          break;
+                        case 'Work Experience':
+                          _scrollToSection(_workExperienceKey);
+                          break;
+                        case 'Portfolio':
+                          _scrollToSection(_portfolioKey);
+                          break;
+                        case 'Contact':
+                          _scrollToSection(_contactKey);
+                          break;
+                      }
+                    },
+                  ),
+                ),
+              ],
             );
           }
 
