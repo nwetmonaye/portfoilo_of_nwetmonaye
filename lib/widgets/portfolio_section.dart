@@ -38,15 +38,27 @@ class PortfolioSection extends StatelessWidget {
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             crossAxisSpacing: 40,
             mainAxisSpacing: 40,
             childAspectRatio: 1.5,
             children: [
               _buildPortfolioCard(
+                'Tun Commercial Bank',
+                'assets/images/tunbank.png',
+                'The mobile banking app provides a variety of convenient functionalitiees. These include the opotion to transfer funds between your own accounts, send money to other accounts, add funds to your account, access detailed account information, and review your account transactions.',
+                isHighlighted: false,
+              ),
+              _buildPortfolioCard(
+                'YadanarBon Bank',
+                'assets/images/yadanarbon.png',
+                'The mobile banking app provides a variety of convenient functionalitiees. These include the opotion to transfer funds between your own accounts, send money to other accounts, add funds to your account, access detailed account information, and review your account transactions.',
+                isHighlighted: false,
+              ),
+              _buildPortfolioCard(
                 'SEDONA',
                 'assets/images/sedona.png',
-                'Lorem ipsum dolor sit amet consectetur. Nulla urna ut nulla aenean viverra vulputate dui molestie. Faucibus viverra cras eget lorem massa.',
+                'In Sedona Hotel Yangon Loyalty Program, where your loyalty is rewarded with exclusive benefits and personalized services. As a member, you will enjoy a host of privileges designed to enhance your stay with us, including: Special room rates and upgrades, Early check-in and late check-out, Access to members-only promotions and events and Complimentary services',
                 isHighlighted: false,
               ),
               _buildPortfolioCard(
