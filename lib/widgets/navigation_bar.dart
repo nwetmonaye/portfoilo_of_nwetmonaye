@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../bloc/portfolio_bloc.dart';
 import '../bloc/portfolio_event.dart';
 import '../bloc/portfolio_state.dart';
@@ -90,21 +91,31 @@ class CustomNavigationBar extends StatelessWidget {
               ),
 
               // CV Button
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: KStyle.cPinkOrgColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: const Text(
-                  'CV',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+              GestureDetector(
+                onTap: () async {
+                  final Uri uri = Uri.parse(
+                    'https://drive.google.com/file/d/1OHO1q9EixRZhVUcwVQ9UNc9aZFzxi_6U/view?usp=sharing',
+                  );
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: KStyle.cPinkOrgColor,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: const Text(
+                    'CV',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

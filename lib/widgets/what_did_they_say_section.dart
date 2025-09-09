@@ -86,7 +86,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
             height: 120,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: KStyle.cPinkOrgColor, width: 3),
+              border: Border.all(color: KStyle.cWhiteColor, width: 3),
               image: DecorationImage(
                 image: AssetImage(currentTestimonial['image']!),
                 fit: BoxFit.cover,
@@ -100,7 +100,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
           Text(
             currentTestimonial['name']!,
             style: KStyle.paraTitleTextStyle.copyWith(
-              color: KStyle.cPinkOrgColor,
+              color: KStyle.cWhiteColor,
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),

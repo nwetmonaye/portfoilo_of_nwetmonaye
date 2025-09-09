@@ -46,7 +46,7 @@ class ContactSection extends StatelessWidget {
 
                   // Email
                   Text(
-                    'nwetmonaye@gmail.com',
+                    'nwetmon7@gmail.com',
                     style: KStyle.paragraphTextStyle.copyWith(
                       color: Colors.grey[300],
                       fontSize: 18,
