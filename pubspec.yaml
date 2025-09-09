@@ -45,6 +45,9 @@ dependencies:
   
   # Timeline support
   timeline_tile: ^2.0.0
+  
+  # URL launcher for opening external links
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:

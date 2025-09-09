@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/style.dart';
 
 class ContactSection extends StatelessWidget {
@@ -103,11 +104,25 @@ class ContactSection extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _buildSocialIcon('assets/icons/facebook.svg'),
+                      _buildSocialIcon(
+                        'assets/icons/facebook.svg',
+                        'https://www.facebook.com/nwetmon.aye/',
+                      ),
                       const SizedBox(width: 20),
-                      _buildSocialIcon('assets/icons/github.svg'),
+                      _buildSocialIcon(
+                        'assets/icons/github.svg',
+                        'https://github.com/nwetmonaye',
+                      ),
                       const SizedBox(width: 20),
-                      _buildSocialIcon('assets/icons/linkedin.svg'),
+                      _buildSocialIcon(
+                        'assets/icons/linkedin.svg',
+                        'https://www.linkedin.com/in/nwet-mon-aye-029b27260/',
+                      ),
+                      const SizedBox(width: 20),
+                      _buildSocialIcon(
+                        'assets/icons/instagram.svg',
+                        'https://www.instagram.com/nwetmonaye7/',
+                      ),
                     ],
                   ),
 
@@ -130,29 +145,37 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialIcon(String iconPath) {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-        color: KStyle.c25BlackColor,
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey[700]!, width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, 2),
-            blurRadius: 4,
-            spreadRadius: 0,
+  Widget _buildSocialIcon(String iconPath, String url) {
+    return GestureDetector(
+      onTap: () async {
+        final Uri uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: KStyle.c25BlackColor,
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.grey[700]!, width: 1),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: const Offset(0, 2),
+              blurRadius: 4,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            iconPath,
+            height: 24,
+            width: 24,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
           ),
-        ],
-      ),
-      child: Center(
-        child: SvgPicture.asset(
-          iconPath,
-          height: 24,
-          width: 24,
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
       ),
     );
