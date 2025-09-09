@@ -206,6 +206,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 40),
                   _buildMobileNavItem(

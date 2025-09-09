@@ -53,7 +53,7 @@ class ProfileSection extends StatelessWidget {
           height: 300,
           width: 300,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(150),
+            borderRadius: BorderRadius.circular(50),
             image: const DecorationImage(
               image: AssetImage('assets/images/profile.png'),
               fit: BoxFit.cover,
@@ -63,59 +63,58 @@ class ProfileSection extends StatelessWidget {
 
         const SizedBox(height: 30),
 
-        // Name
-        Text(
-          'NWET',
-          style: KStyle.headingTextStyle.copyWith(
-            color: KStyle.cPinkOrgColor,
-            fontSize: 50,
-          ),
-        ),
-        Text(
-          'MON AYE',
-          style: KStyle.headingTextStyle.copyWith(
-            color: KStyle.cPinkOrgColor,
-            fontSize: 50,
-          ),
-        ),
-
-        const SizedBox(height: 20),
-
-        // About Paragraph
-        Text(
-          'A seasoned developer with a strong background in both full-stack web development and mobile application development. Possessing extensive experience gained from prestigious institutions at Myanmar Information Technology, coupled with proficiency in a range of technologies including Node.js, Java, Angular, and Flutter. Proven expertise in utilizing industry-standard design patterns such as MVC and BLoC to build robust and scalable applications. Now I\'m currently working at BIM group of Company as a mobile application developer.',
-          style: KStyle.paragraphTextStyle.copyWith(
-            color: Colors.white,
-            fontSize: 14,
-            height: 1.6,
-          ),
-          textAlign: TextAlign.center,
-        ),
-
-        const SizedBox(height: 30),
-
-        // Social Media Icons
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _buildSocialIcon(
-              'assets/icons/linkedin.svg',
-              'https://www.linkedin.com/in/nwet-mon-aye-029b27260/',
+            // Name
+            Text(
+              'NWET MON AYE',
+              style: KStyle.headingTextStyle.copyWith(
+                color: KStyle.cPinkOrgColor,
+                fontSize: 40,
+              ),
             ),
-            const SizedBox(width: 15),
-            _buildSocialIcon(
-              'assets/icons/github.svg',
-              'https://github.com/nwetmonaye',
+
+            const SizedBox(height: 20),
+
+            // About Paragraph
+            Text(
+              'A seasoned developer with a strong background in both full-stack web development and mobile application development. Possessing extensive experience gained from prestigious institutions at Myanmar Information Technology, coupled with proficiency in a range of technologies including Node.js, Java, Angular, and Flutter. Proven expertise in utilizing industry-standard design patterns such as MVC and BLoC to build robust and scalable applications. Now I\'m currently working at BIM group of Company as a mobile application developer.',
+              style: KStyle.paragraphTextStyle.copyWith(
+                color: Colors.white,
+                fontSize: 14,
+                height: 1.6,
+              ),
+              textAlign: TextAlign.left,
             ),
-            const SizedBox(width: 15),
-            _buildSocialIcon(
-              'assets/icons/facebook.svg',
-              'https://www.facebook.com/nwetmon.aye/',
-            ),
-            const SizedBox(width: 15),
-            _buildSocialIcon(
-              'assets/icons/instagram.svg',
-              'https://www.instagram.com/nwetmonaye7/',
+
+            const SizedBox(height: 30),
+
+            // Social Media Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildSocialIcon(
+                  'assets/icons/linkedin.svg',
+                  'https://www.linkedin.com/in/nwet-mon-aye-029b27260/',
+                ),
+                const SizedBox(width: 15),
+                _buildSocialIcon(
+                  'assets/icons/github.svg',
+                  'https://github.com/nwetmonaye',
+                ),
+                const SizedBox(width: 15),
+                _buildSocialIcon(
+                  'assets/icons/facebook.svg',
+                  'https://www.facebook.com/nwetmon.aye/',
+                ),
+                const SizedBox(width: 15),
+                _buildSocialIcon(
+                  'assets/icons/instagram.svg',
+                  'https://www.instagram.com/nwetmonaye7/',
+                ),
+              ],
             ),
           ],
         ),
@@ -212,18 +211,57 @@ class ProfileSection extends StatelessWidget {
   }
 
   Widget _buildMobileTechIcons() {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 20,
-      runSpacing: 20,
+    return SizedBox(
+      height: 80,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          _buildMobileTechIconWithLabel('assets/images/flutter.png', 'Flutter'),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel('assets/images/java.png', 'Java'),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel('assets/images/dart.png', 'Dart'),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel(
+            'assets/images/firebase.png',
+            'Firebase',
+          ),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel('assets/images/vscode.png', 'VS Code'),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel('assets/images/nodejs.png', 'Node.js'),
+          const SizedBox(width: 20),
+          _buildMobileTechIconWithLabel('assets/images/angular.png', 'Angular'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMobileTechIconWithLabel(String imgPath, String label) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildTechIcon('assets/images/flutter.png'),
-        _buildTechIcon('assets/images/java.png'),
-        _buildTechIcon('assets/images/dart.png'),
-        _buildTechIcon('assets/images/firebase.png'),
-        _buildTechIcon('assets/images/vscode.png'),
-        _buildTechIcon('assets/images/nodejs.png'),
-        _buildTechIcon('assets/images/angular.png'),
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Image.asset(imgPath, fit: BoxFit.contain),
+          ),
+        ),
+        // const SizedBox(height: 8),
+        // Text(
+        //   label,
+        //   style: KStyle.paragraphTextStyle.copyWith(
+        //     color: Colors.white,
+        //     fontSize: 12,
+        //     fontWeight: FontWeight.w500,
+        //   ),
+        // ),
       ],
     );
   }
