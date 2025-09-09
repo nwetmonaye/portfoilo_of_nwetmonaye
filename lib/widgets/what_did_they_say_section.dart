@@ -13,26 +13,26 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
 
   final List<Map<String, String>> _testimonials = [
     {
-      'name': 'John Smith',
-      'role': 'STATE MANAGEMENT & PERFORMANCE',
-      'image': 'assets/images/profile.png',
+      'name': 'Kaung Khant Kyaw',
+      'role': 'Senior Developer',
+      'image': 'assets/images/kkk.jpg',
       'text':
-          'Lorem ipsum dolor sit amet consectetur. Magnis malesuada risus eu et suscipit urna adipiscing. Nibh enim pharetra purus sit ullamcorper quam pellentesque. Commodo massa tempor gravida diam aliquam. Et cursus in justo et lectus. Tincidunt magna consectetur tellus dictum est enim. Eget natoque felis laoreet sit porttitor ullamcorper faucibus aliquet. Sit sit senectus scelerisque imperdiet dignissim turpis sed vestibulum amet.',
+          'I confidently recommend Nwet Mon Aye as a junior developer. She is hardworking, reliable, and has demonstrated both technical ability and strong potential for growth. Any development team would benefit from having her.',
     },
-    {
-      'name': 'Sarah Johnson',
-      'role': 'UI/UX DESIGN & PROTOTYPING',
-      'image': 'assets/images/profile.png',
-      'text':
-          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    },
-    {
-      'name': 'Michael Chen',
-      'role': 'MOBILE APP DEVELOPMENT',
-      'image': 'assets/images/profile.png',
-      'text':
-          'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
-    },
+    // {
+    //   'name': 'Sarah Johnson',
+    //   'role': 'UI/UX DESIGN & PROTOTYPING',
+    //   'image': 'assets/images/profile.png',
+    //   'text':
+    //       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+    // },
+    // {
+    //   'name': 'Michael Chen',
+    //   'role': 'MOBILE APP DEVELOPMENT',
+    //   'image': 'assets/images/profile.png',
+    //   'text':
+    //       'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
+    // },
   ];
 
   void _nextTestimonial() {
