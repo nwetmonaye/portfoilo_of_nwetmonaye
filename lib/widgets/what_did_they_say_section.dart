@@ -55,6 +55,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isMobile = constraints.maxWidth < 768;
+        final bool isDark = Theme.of(context).brightness == Brightness.dark;
         return Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
@@ -69,7 +70,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
                   Text(
                     'WHAT DID ',
                     style: KStyle.titleTextStyle.copyWith(
-                      color: Colors.white,
+                      color: isDark ? Colors.white : Colors.black87,
                       fontSize: isMobile ? 26 : 48,
                     ),
                   ),
@@ -90,7 +91,10 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
                 height: isMobile ? 100 : 120,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: KStyle.cWhiteColor, width: 3),
+                  border: Border.all(
+                    color: isDark ? KStyle.cWhiteColor : Colors.black54,
+                    width: 3,
+                  ),
                   image: DecorationImage(
                     image: AssetImage(currentTestimonial['image']!),
                     fit: BoxFit.cover,
@@ -109,7 +113,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
               Text(
                 currentTestimonial['name']!,
                 style: KStyle.paraTitleTextStyle.copyWith(
-                  color: KStyle.cWhiteColor,
+                  color: isDark ? KStyle.cWhiteColor : Colors.black87,
                   fontSize: isMobile ? 18 : 20,
                   fontWeight: FontWeight.w600,
                 ),
@@ -120,7 +124,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
               Text(
                 currentTestimonial['role']!,
                 style: KStyle.paraTitleTextStyle.copyWith(
-                  color: Colors.white,
+                  color: isDark ? Colors.white : Colors.black87,
                   fontSize: isMobile ? 16 : 18,
                   fontWeight: FontWeight.w600,
                 ),
@@ -133,7 +137,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
                 child: Text(
                   currentTestimonial['text']!,
                   style: KStyle.paragraphTextStyle.copyWith(
-                    color: Colors.white,
+                    color: isDark ? Colors.white : Colors.black87,
                     fontSize: isMobile ? 14 : 16,
                     height: 1.6,
                   ),

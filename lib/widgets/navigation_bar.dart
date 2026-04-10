@@ -9,8 +9,13 @@ import '../constants/style.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   final Function(String) onNavItemTap;
+  final ValueNotifier<ThemeMode> themeMode;
 
-  const CustomNavigationBar({super.key, required this.onNavItemTap});
+  const CustomNavigationBar({
+    super.key,
+    required this.onNavItemTap,
+    required this.themeMode,
+  });
 
   @override
   State<CustomNavigationBar> createState() => _CustomNavigationBarState();
@@ -52,11 +57,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   }
 
   Widget _buildMobileNavBar(BuildContext context, String currentSection) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: BoxDecoration(
-        color: KStyle.c25BlackColor,
+        color: isDark ? KStyle.c25BlackColor : Colors.white,
         borderRadius: BorderRadius.circular(50),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -69,6 +75,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           // Right side - CV Button and Hamburger
           Row(
             children: [
+              _themeToggle(isDark),
+              const SizedBox(width: 15),
               // CV Button
               GestureDetector(
                 onTap: () async {
@@ -118,10 +126,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   }
 
   Widget _buildMobileDrawer(BuildContext context, String currentSection) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height,
-      color: KStyle.c26BlackColor,
+      color: isDark ? KStyle.c26BlackColor : Colors.white,
       child: Column(
         children: [
           // Header with same nav bar
@@ -129,7 +138,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             decoration: BoxDecoration(
-              color: KStyle.c25BlackColor,
+              color: isDark ? KStyle.c25BlackColor : Colors.white,
               borderRadius: BorderRadius.circular(50),
             ),
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -146,6 +155,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 // Right side - CV Button and Close
                 Row(
                   children: [
+                    _themeToggle(isDark),
+                    const SizedBox(width: 15),
                     // CV Button
                     GestureDetector(
                       onTap: () async {
@@ -246,11 +257,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   }
 
   Widget _buildDesktopNav(BuildContext context, String currentSection) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       decoration: BoxDecoration(
-        color: KStyle.c25BlackColor,
+        color: isDark ? KStyle.c25BlackColor : Colors.white,
         borderRadius: BorderRadius.circular(50),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -301,6 +313,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             ),
           ),
 
+          _themeToggle(isDark),
+          const SizedBox(width: 20),
+
           // CV Button
           GestureDetector(
             onTap: () async {
@@ -339,6 +354,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     String currentSection,
   ) {
     final isSelected = currentSection == section;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: () {
@@ -351,7 +367,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       child: Text(
         text,
         style: KStyle.navTextStyle.copyWith(
-          color: isSelected ? KStyle.cPinkOrgColor : Colors.white,
+          color: isSelected
+              ? KStyle.cPinkOrgColor
+              : (isDark ? Colors.white : Colors.black87),
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
@@ -366,6 +384,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     String currentSection,
   ) {
     final isSelected = currentSection == section;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: () {
@@ -375,7 +394,30 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       child: Text(
         text,
         style: KStyle.navTextStyle.copyWith(
-          color: isSelected ? KStyle.cPinkOrgColor : Colors.white,
+          color: isSelected
+              ? KStyle.cPinkOrgColor
+              : (isDark ? Colors.white : Colors.black87),
+        ),
+      ),
+    );
+  }
+
+  Widget _themeToggle(bool isDark) {
+    return GestureDetector(
+      onTap: () {
+        widget.themeMode.value =
+            isDark ? ThemeMode.light : ThemeMode.dark;
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.white.withOpacity(0.08) : Colors.black12,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          isDark ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
+          color: isDark ? Colors.white : Colors.black87,
+          size: 20,
         ),
       ),
     );

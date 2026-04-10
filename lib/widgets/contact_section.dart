@@ -8,6 +8,7 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isMobile = constraints.maxWidth < 768;
@@ -22,8 +23,8 @@ class ContactSection extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                KStyle.c26BlackColor,
-                const Color(0xFF2A1B2A),
+                isDark ? KStyle.c26BlackColor : const Color(0xFFF4F5F8),
+                isDark ? const Color(0xFF2A1B2A) : Colors.white,
               ],
             ),
           ),
@@ -43,7 +44,7 @@ class ContactSection extends StatelessWidget {
                     Text(
                       'nwetmon7@gmail.com',
                       style: KStyle.paragraphTextStyle.copyWith(
-                        color: Colors.grey[300],
+                        color: isDark ? Colors.grey[300] : Colors.black87,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -52,7 +53,7 @@ class ContactSection extends StatelessWidget {
                     Text(
                       '+959982284320 , +84374860146',
                       style: KStyle.paragraphTextStyle.copyWith(
-                        color: Colors.grey[300],
+                        color: isDark ? Colors.grey[300] : Colors.black87,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -61,7 +62,7 @@ class ContactSection extends StatelessWidget {
                     Text(
                       'SOCIAL',
                       style: KStyle.paraTitleTextStyle.copyWith(
-                        color: Colors.grey[300],
+                        color: isDark ? Colors.grey[300] : Colors.black87,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
@@ -80,7 +81,7 @@ class ContactSection extends StatelessWidget {
                     Text(
                       'COPYRIGHT 2025',
                       style: KStyle.paragraphTextStyle.copyWith(
-                        color: Colors.grey[400],
+                        color: isDark ? Colors.grey[400] : Colors.black54,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                       ),
@@ -107,7 +108,7 @@ class ContactSection extends StatelessWidget {
                           Text(
                             'nwetmon7@gmail.com',
                             style: KStyle.paragraphTextStyle.copyWith(
-                              color: Colors.grey[300],
+                              color: isDark ? Colors.grey[300] : Colors.black87,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
@@ -116,7 +117,7 @@ class ContactSection extends StatelessWidget {
                           Text(
                             '+959982284320 , +84374860146',
                             style: KStyle.paragraphTextStyle.copyWith(
-                              color: Colors.grey[300],
+                              color: isDark ? Colors.grey[300] : Colors.black87,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
@@ -125,7 +126,7 @@ class ContactSection extends StatelessWidget {
                           Text(
                             'COPYRIGHT 2025',
                             style: KStyle.paragraphTextStyle.copyWith(
-                              color: Colors.grey[400],
+                              color: isDark ? Colors.grey[400] : Colors.black54,
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                             ),
@@ -142,7 +143,7 @@ class ContactSection extends StatelessWidget {
                           Text(
                             'SOCIAL',
                             style: KStyle.paraTitleTextStyle.copyWith(
-                              color: Colors.grey[300],
+                              color: isDark ? Colors.grey[300] : Colors.black87,
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                             ),
@@ -166,7 +167,7 @@ class ContactSection extends StatelessWidget {
                           Text(
                             'MADE BY',
                             style: KStyle.paragraphTextStyle.copyWith(
-                              color: Colors.grey[400],
+                              color: isDark ? Colors.grey[400] : Colors.black54,
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                             ),

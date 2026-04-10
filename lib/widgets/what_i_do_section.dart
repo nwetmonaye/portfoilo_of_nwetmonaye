@@ -11,6 +11,7 @@ class WhatIDoSection extends StatelessWidget {
       builder: (context, constraints) {
         final bool isMobile = constraints.maxWidth < 768;
         final bool isTablet = constraints.maxWidth < 1100 && !isMobile;
+        final bool isDark = Theme.of(context).brightness == Brightness.dark;
         final int crossAxisCount = isMobile
             ? 1
             : isTablet
@@ -19,7 +20,9 @@ class WhatIDoSection extends StatelessWidget {
 
         return Container(
           width: double.infinity,
-          decoration: BoxDecoration(color: KStyle.c26BlackColor),
+          decoration: BoxDecoration(
+            color: isDark ? KStyle.c26BlackColor : Colors.white,
+          ),
           padding: EdgeInsets.symmetric(
             horizontal: isMobile ? 18 : 40,
             vertical: isMobile ? 30 : 40,
@@ -33,7 +36,7 @@ class WhatIDoSection extends StatelessWidget {
                   Text(
                     'WHAT ',
                     style: KStyle.titleTextStyle.copyWith(
-                      color: Colors.white,
+                      color: isDark ? Colors.white : Colors.black87,
                       fontSize: isMobile ? 28 : 48,
                     ),
                   ),
@@ -72,6 +75,7 @@ class WhatIDoSection extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final service = _services[index];
                   return _buildServiceCard(
+                    context,
                     service['title']!,
                     service['description']!,
                     isMobile: isMobile,
@@ -86,17 +90,20 @@ class WhatIDoSection extends StatelessWidget {
   }
 
   Widget _buildServiceCard(
+    BuildContext context,
     String title,
     String description, {
     bool isMobile = false,
   }) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.all(isMobile ? 18 : 25),
       decoration: BoxDecoration(
-        color: KStyle.cWhiteColor.withOpacity(0.1),
+        color: isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Colors.white.withOpacity(0.05),
+          color:
+              isDark ? Colors.white.withOpacity(0.05) : Colors.black12,
         ),
         boxShadow: [
           BoxShadow(
@@ -123,7 +130,7 @@ class WhatIDoSection extends StatelessWidget {
           Text(
             title,
             style: KStyle.paraTitleTextStyle.copyWith(
-              color: Colors.white,
+              color: isDark ? Colors.white : Colors.black87,
               fontSize: isMobile ? 14 : 16,
               fontWeight: FontWeight.w600,
             ),
@@ -132,7 +139,7 @@ class WhatIDoSection extends StatelessWidget {
           Text(
             description,
             style: KStyle.paragraphTextStyle.copyWith(
-              color: Colors.grey[400],
+              color: isDark ? Colors.grey[400] : Colors.black54,
               fontSize: isMobile ? 13 : 14,
               height: 1.5,
             ),

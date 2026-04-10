@@ -13,19 +13,21 @@ import '../widgets/portfolio_section.dart';
 import '../widgets/contact_section.dart';
 
 class PortfolioPage extends StatelessWidget {
-  const PortfolioPage({super.key});
+  final ValueNotifier<ThemeMode> themeMode;
+  const PortfolioPage({super.key, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PortfolioBloc()..add(LoadPortfolio()),
-      child: const PortfolioView(),
+      child: PortfolioView(themeMode: themeMode),
     );
   }
 }
 
 class PortfolioView extends StatefulWidget {
-  const PortfolioView({super.key});
+  final ValueNotifier<ThemeMode> themeMode;
+  const PortfolioView({super.key, required this.themeMode});
 
   @override
   State<PortfolioView> createState() => _PortfolioViewState();
@@ -71,7 +73,7 @@ class _PortfolioViewState extends State<PortfolioView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KStyle.c26BlackColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<PortfolioBloc, PortfolioState>(
         builder: (context, state) {
           if (state is PortfolioLoading) {
@@ -90,11 +92,25 @@ class _PortfolioViewState extends State<PortfolioView> {
                     children: [
                       Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/background.png'),
-                            fit: BoxFit.cover,
-                          ),
+                        decoration: BoxDecoration(
+                          image: Theme.of(context).brightness == Brightness.dark
+                              ? const DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/background.png'),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
+                          gradient:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? null
+                                  : LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Colors.white,
+                                        Colors.grey.shade100,
+                                      ],
+                                    ),
                         ),
                         child: Column(
                           children: [
@@ -131,6 +147,7 @@ class _PortfolioViewState extends State<PortfolioView> {
                   left: 0,
                   right: 0,
                   child: CustomNavigationBar(
+                    themeMode: widget.themeMode,
                     onNavItemTap: (section) {
                       switch (section) {
                         case 'Profile':

@@ -11,11 +11,12 @@ class PortfolioSection extends StatelessWidget {
       builder: (context, constraints) {
         final bool isMobile = constraints.maxWidth < 768;
         final bool isTablet = constraints.maxWidth < 1100 && !isMobile;
+        final bool isDark = Theme.of(context).brightness == Brightness.dark;
         final int crossAxisCount = isMobile
             ? 1
             : isTablet
-            ? 2
-            : 3;
+                ? 2
+                : 3;
 
         return Container(
           width: double.infinity,
@@ -31,7 +32,7 @@ class PortfolioSection extends StatelessWidget {
                   Text(
                     'MY ',
                     style: KStyle.titleTextStyle.copyWith(
-                      color: Colors.white,
+                      color: isDark ? Colors.white : Colors.black87,
                       fontSize: isMobile ? 28 : 48,
                     ),
                   ),
@@ -117,6 +118,7 @@ class PortfolioSection extends StatelessWidget {
     required bool isHighlighted,
     bool isMobile = false,
   }) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () => _showPortfolioDetail(
         context,
@@ -129,7 +131,7 @@ class PortfolioSection extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: KStyle.cWhiteColor.withOpacity(0.1),
+            color: isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: isHighlighted
               ? Border.all(color: KStyle.cPinkOrgColor, width: 2)
@@ -151,11 +153,11 @@ class PortfolioSection extends StatelessWidget {
                   ),
                 ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 7,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 7,
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
@@ -214,7 +216,7 @@ class PortfolioSection extends StatelessWidget {
                     Text(
                       title,
                       style: KStyle.paraTitleTextStyle.copyWith(
-                        color: Colors.white,
+                        color: isDark ? Colors.white : Colors.black87,
                         fontSize: isMobile ? 16 : 20,
                         fontWeight: FontWeight.w700,
                       ),
@@ -224,7 +226,7 @@ class PortfolioSection extends StatelessWidget {
                       child: Text(
                         description,
                         style: KStyle.paragraphTextStyle.copyWith(
-                          color: Colors.grey[400],
+                          color: isDark ? Colors.grey[400] : Colors.black54,
                           fontSize: isMobile ? 12.5 : 14,
                           height: 1.4,
                         ),
@@ -303,6 +305,7 @@ class PortfolioSection extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         final bool isMobile = MediaQuery.of(context).size.width < 768;
+        final bool isDark = Theme.of(context).brightness == Brightness.dark;
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
@@ -310,7 +313,7 @@ class PortfolioSection extends StatelessWidget {
             height:
                 MediaQuery.of(context).size.height * (isMobile ? 0.75 : 0.7),
             decoration: BoxDecoration(
-              color: KStyle.c26BlackColor,
+              color: isDark ? KStyle.c26BlackColor : Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: KStyle.cPinkOrgColor, width: 2),
             ),
@@ -386,7 +389,7 @@ class PortfolioSection extends StatelessWidget {
                         Text(
                           description,
                           style: KStyle.paragraphTextStyle.copyWith(
-                            color: Colors.grey[300],
+                            color: isDark ? Colors.grey[300] : Colors.black87,
                             fontSize: isMobile ? 14 : 16,
                             height: 1.6,
                           ),

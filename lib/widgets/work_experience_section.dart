@@ -7,6 +7,12 @@ class WorkExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final Color textPrimary = isDark ? Colors.white : Colors.black87;
+    final Color cardColor =
+        isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white;
+    final Color lineColor = isDark ? Colors.grey[700]! : Colors.grey[300]!;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final bool isMobile = constraints.maxWidth < 768;
@@ -25,7 +31,7 @@ class WorkExperienceSection extends StatelessWidget {
                   Text(
                     'WORK ',
                     style: KStyle.titleTextStyle.copyWith(
-                      color: Colors.white,
+                      color: textPrimary,
                       fontSize: isMobile ? 28 : 48,
                     ),
                   ),
@@ -82,6 +88,8 @@ class WorkExperienceSection extends StatelessWidget {
                                 exp['company']!,
                                 exp['dates']!,
                                 isHighlighted: highlighted,
+                                cardColor: cardColor,
+                                textPrimary: textPrimary,
                                 isMobile: true,
                               ),
                             ),
@@ -103,18 +111,21 @@ class WorkExperienceSection extends StatelessWidget {
                               'BIM GROUPS OF COMPANY',
                               'March 2024 - Present',
                               isHighlighted: true,
+                              cardColor: cardColor,
+                              textPrimary: textPrimary,
                             ),
                           ),
                           Container(
                             height: 2,
                             width: 40,
-                            color: Colors.grey[700],
+                            color: lineColor,
                           ),
                         ],
                       ),
                       isFirst: true,
                       highlight: true,
                       startChild: true,
+                      lineColor: lineColor,
                     ),
                     _buildDesktopTile(
                       child: Row(
@@ -122,7 +133,7 @@ class WorkExperienceSection extends StatelessWidget {
                           Container(
                             height: 2,
                             width: 40,
-                            color: Colors.grey[700],
+                            color: lineColor,
                           ),
                           Expanded(
                             child: _buildExperienceCard(
@@ -130,11 +141,14 @@ class WorkExperienceSection extends StatelessWidget {
                               'MYANMAR INFORMATION TECHNOLOGY',
                               'November 2022 - February 2024',
                               isHighlighted: false,
+                              cardColor: cardColor,
+                              textPrimary: textPrimary,
                             ),
                           ),
                         ],
                       ),
                       startChild: false,
+                      lineColor: lineColor,
                     ),
                     _buildDesktopTile(
                       child: Row(
@@ -145,16 +159,19 @@ class WorkExperienceSection extends StatelessWidget {
                               'MAHAR NET ISP COMPANY LIMITED',
                               'August 2021 - October 2022',
                               isHighlighted: false,
+                              cardColor: cardColor,
+                              textPrimary: textPrimary,
                             ),
                           ),
                           Container(
                             height: 2,
                             width: 40,
-                            color: Colors.grey[700],
+                            color: lineColor,
                           ),
                         ],
                       ),
                       startChild: true,
+                      lineColor: lineColor,
                     ),
                     _buildDesktopTile(
                       child: Row(
@@ -162,7 +179,7 @@ class WorkExperienceSection extends StatelessWidget {
                           Container(
                             height: 2,
                             width: 40,
-                            color: Colors.grey[700],
+                            color: lineColor,
                           ),
                           Expanded(
                             child: _buildExperienceCard(
@@ -170,12 +187,15 @@ class WorkExperienceSection extends StatelessWidget {
                               'TRUST CORE ICT COMPANY LIMITED',
                               'April 2020 - July 2020',
                               isHighlighted: false,
+                              cardColor: cardColor,
+                              textPrimary: textPrimary,
                             ),
                           ),
                         ],
                       ),
                       startChild: false,
                       isLast: true,
+                      lineColor: lineColor,
                     ),
                   ],
                 ),
@@ -191,14 +211,14 @@ class WorkExperienceSection extends StatelessWidget {
     String company,
     String dates, {
     required bool isHighlighted,
+    required Color cardColor,
+    required Color textPrimary,
     bool isMobile = false,
   }) {
     return Container(
       padding: EdgeInsets.all(isMobile ? 18 : 25),
       decoration: BoxDecoration(
-        color: isHighlighted
-            ? KStyle.cPinkOrgColor
-            : KStyle.cWhiteColor.withOpacity(0.1),
+        color: isHighlighted ? KStyle.cPinkOrgColor : cardColor,
         borderRadius: BorderRadius.circular(15),
         boxShadow: isHighlighted
             ? [
@@ -220,7 +240,6 @@ class WorkExperienceSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Job Title
           Text(
             jobTitle,
             style: KStyle.paraTitleTextStyle.copyWith(
@@ -229,22 +248,16 @@ class WorkExperienceSection extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-
           const SizedBox(height: 10),
-
-          // Company Name
           Text(
             company,
             style: KStyle.paragraphTextStyle.copyWith(
-              color: Colors.white,
+              color: isHighlighted ? Colors.white : textPrimary,
               fontSize: isMobile ? 15 : 16,
               fontWeight: FontWeight.w500,
             ),
           ),
-
           const SizedBox(height: 8),
-
-          // Dates
           Text(
             dates,
             style: KStyle.paragraphTextStyle.copyWith(
@@ -259,6 +272,7 @@ class WorkExperienceSection extends StatelessWidget {
 
   TimelineTile _buildDesktopTile({
     required Widget child,
+    required Color lineColor,
     bool isFirst = false,
     bool isLast = false,
     bool highlight = false,
@@ -292,11 +306,11 @@ class WorkExperienceSection extends StatelessWidget {
         ),
       ),
       beforeLineStyle: LineStyle(
-        color: Colors.grey[700]!,
+        color: lineColor,
         thickness: 3,
       ),
       afterLineStyle: LineStyle(
-        color: Colors.grey[700]!,
+        color: lineColor,
         thickness: 3,
       ),
       startChild: startChild ? child : const SizedBox.shrink(),
