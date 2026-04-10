@@ -70,7 +70,8 @@ class WhatIDoSection extends StatelessWidget {
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: isMobile ? 16 : 32,
                   mainAxisSpacing: isMobile ? 16 : 32,
-                  childAspectRatio: isMobile ? 1.35 : 2.1,
+                  // Taller cells on web/desktop so title + body fit without overflow.
+                  childAspectRatio: isMobile ? 1.25 : 1.75,
                 ),
                 itemBuilder: (context, index) {
                   final service = _services[index];
@@ -115,33 +116,39 @@ class WhatIDoSection extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SvgPicture.asset(
             'assets/icons/star.svg',
-            height: 30,
-            width: 30,
+            height: isMobile ? 28 : 26,
+            width: isMobile ? 28 : 26,
             colorFilter: ColorFilter.mode(
               KStyle.cPinkOrgColor,
               BlendMode.srcIn,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: isMobile ? 12 : 10),
           Text(
             title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: KStyle.paraTitleTextStyle.copyWith(
               color: isDark ? Colors.white : Colors.black87,
-              fontSize: isMobile ? 14 : 16,
+              fontSize: isMobile ? 14 : 15,
               fontWeight: FontWeight.w600,
+              height: 1.25,
             ),
           ),
-          const SizedBox(height: 15),
-          Text(
-            description,
-            style: KStyle.paragraphTextStyle.copyWith(
-              color: isDark ? Colors.grey[400] : Colors.black54,
-              fontSize: isMobile ? 13 : 14,
-              height: 1.5,
+          SizedBox(height: isMobile ? 8 : 6),
+          Expanded(
+            child: Text(
+              description,
+              maxLines: isMobile ? 8 : 6,
+              overflow: TextOverflow.ellipsis,
+              style: KStyle.paragraphTextStyle.copyWith(
+                color: isDark ? Colors.grey[400] : Colors.black54,
+                fontSize: isMobile ? 12.5 : 13,
+                height: 1.45,
+              ),
             ),
           ),
         ],
