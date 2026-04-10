@@ -14,7 +14,7 @@ class ProfileSection extends StatelessWidget {
 
         return Container(
           width: double.infinity,
-          padding: EdgeInsets.all(isMobile ? 20 : 40),
+          padding: EdgeInsets.all(isMobile ? 18 : 40),
           child: Column(
             children: [
               // Main Profile Content
@@ -47,17 +47,25 @@ class ProfileSection extends StatelessWidget {
 
   Widget _buildMobileProfileContent() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Profile Image (Top on mobile)
         Container(
-          height: 300,
-          width: 300,
+          height: 240,
+          width: 240,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(40),
             image: const DecorationImage(
               image: AssetImage('assets/images/profile.png'),
               fit: BoxFit.cover,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: KStyle.cPinkOrgColor.withOpacity(0.25),
+                blurRadius: 30,
+                spreadRadius: 2,
+              ),
+            ],
           ),
         ),
 
@@ -72,7 +80,7 @@ class ProfileSection extends StatelessWidget {
               'NWET MON AYE',
               style: KStyle.headingTextStyle.copyWith(
                 color: KStyle.cPinkOrgColor,
-                fontSize: 40,
+                fontSize: 34,
               ),
             ),
 
@@ -83,7 +91,7 @@ class ProfileSection extends StatelessWidget {
               'A seasoned developer with a strong background in both full-stack web development and mobile application development. Possessing extensive experience gained from prestigious institutions at Myanmar Information Technology, coupled with proficiency in a range of technologies including Node.js, Java, Angular, and Flutter. Proven expertise in utilizing industry-standard design patterns such as MVC and BLoC to build robust and scalable applications. Now I\'m currently working at BIM group of Company as a mobile application developer.',
               style: KStyle.paragraphTextStyle.copyWith(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: 13.5,
                 height: 1.6,
               ),
               textAlign: TextAlign.left,

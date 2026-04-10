@@ -7,220 +7,182 @@ class WorkExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        children: [
-          // Section Title
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'WORK ',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 48,
-                ),
-              ),
-              Text(
-                'EXPERIENCE',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: KStyle.cPinkOrgColor,
-                  fontSize: 48,
-                ),
-              ),
-            ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isMobile = constraints.maxWidth < 768;
+
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 18 : 40,
+            vertical: isMobile ? 30 : 40,
           ),
-
-          const SizedBox(height: 80),
-
-          // Timeline
-          Column(
+          child: Column(
             children: [
-              // First Experience - Top Left (Highlighted)
-              TimelineTile(
-                alignment: TimelineAlign.manual,
-                lineXY: 0.5,
-                isFirst: true,
-                indicatorStyle: IndicatorStyle(
-                  width: 20,
-                  height: 20,
-                  indicator: Container(
-                    decoration: BoxDecoration(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'WORK ',
+                    style: KStyle.titleTextStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: isMobile ? 28 : 48,
+                    ),
+                  ),
+                  Text(
+                    'EXPERIENCE',
+                    style: KStyle.titleTextStyle.copyWith(
                       color: KStyle.cPinkOrgColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: KStyle.cPinkOrgColor.withOpacity(0.6),
-                          blurRadius: 15,
-                          spreadRadius: 2,
-                        ),
-                        BoxShadow(
-                          color: KStyle.cPinkOrgColor.withOpacity(0.3),
-                          blurRadius: 25,
-                          spreadRadius: 5,
-                        ),
-                      ],
+                      fontSize: isMobile ? 28 : 48,
                     ),
                   ),
-                ),
-                beforeLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                afterLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                startChild: Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _buildExperienceCard(
-                          'MOBILE APPLICATION DEVELOPER',
-                          'BIM GROUPS OF COMPANY',
-                          'March 2024 - Present',
-                          isHighlighted: true,
-                        ),
-                      ),
-                      // Horizontal Divider
-                      Container(height: 2, width: 40, color: Colors.grey[700]),
-                    ],
-                  ),
-                ),
-                endChild: const SizedBox.shrink(),
+                ],
               ),
 
-              // Second Experience - Right
-              TimelineTile(
-                alignment: TimelineAlign.manual,
-                lineXY: 0.5,
-                indicatorStyle: IndicatorStyle(
-                  width: 20,
-                  height: 20,
-                  indicator: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[800],
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey[600]!, width: 1),
-                    ),
-                  ),
-                ),
-                beforeLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                afterLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                startChild: const SizedBox.shrink(),
-                endChild: Container(
-                  // padding: const EdgeInsets.only(left: 40),
-                  child: Row(
-                    children: [
-                      // Horizontal Divider
-                      Container(height: 2, width: 40, color: Colors.grey[700]),
-                      Expanded(
-                        child: _buildExperienceCard(
-                          'JUNIOR FULL STACK DEVELOPER',
-                          'MYANMAR INFORMATION TECHNOLOGY',
-                          'November 2022 - February 2024',
-                          isHighlighted: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              SizedBox(height: isMobile ? 32 : 80),
 
-              // Third Experience - Left
-              TimelineTile(
-                alignment: TimelineAlign.manual,
-                lineXY: 0.5,
-                indicatorStyle: IndicatorStyle(
-                  width: 20,
-                  height: 20,
-                  indicator: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[800],
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey[600]!, width: 1),
-                    ),
-                  ),
-                ),
-                beforeLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                afterLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                startChild: Container(
-                  // padding: const EdgeInsets.only(right: 40),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _buildExperienceCard(
-                          'NOC & OPERATION ENGINEER',
-                          'MAHAR NET ISP COMPANY LIMITED',
-                          'August 2021 - October 2022',
-                          isHighlighted: false,
+              if (isMobile)
+                Column(
+                  children: List.generate(
+                    _experiences.length,
+                    (index) {
+                      final exp = _experiences[index];
+                      final bool highlighted = index == 0;
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: index == _experiences.length - 1 ? 0 : 18,
                         ),
-                      ),
-                      // Horizontal Divider
-                      Container(height: 2, width: 40, color: Colors.grey[700]),
-                    ],
-                  ),
-                ),
-                endChild: const SizedBox.shrink(),
-              ),
-
-              // Fourth Experience - Right
-              TimelineTile(
-                alignment: TimelineAlign.manual,
-                lineXY: 0.5,
-                isLast: true,
-                indicatorStyle: IndicatorStyle(
-                  width: 20,
-                  height: 20,
-                  indicator: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[800],
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.grey[600]!, width: 1),
-                    ),
-                  ),
-                ),
-                beforeLineStyle: LineStyle(
-                  color: Colors.grey[700]!,
-                  thickness: 3,
-                ),
-                startChild: const SizedBox.shrink(),
-                endChild: Container(
-                  // padding: const EdgeInsets.only(left: 40),
-                  child: Row(
-                    children: [
-                      // Horizontal Divider
-                      Container(height: 2, width: 40, color: Colors.grey[700]),
-                      Expanded(
-                        child: _buildExperienceCard(
-                          'INTERNSHIP',
-                          'TRUST CORE ICT COMPANY LIMITED',
-                          'April 2020 - July 2020',
-                          isHighlighted: false,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: 14,
+                                  height: 14,
+                                  decoration: BoxDecoration(
+                                    color: highlighted
+                                        ? KStyle.cPinkOrgColor
+                                        : Colors.grey[700],
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                if (index != _experiences.length - 1)
+                                  Container(
+                                    width: 2,
+                                    height: 80,
+                                    color: Colors.grey[700],
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: _buildExperienceCard(
+                                exp['title']!,
+                                exp['company']!,
+                                exp['dates']!,
+                                isHighlighted: highlighted,
+                                isMobile: true,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
+                )
+              else
+                Column(
+                  children: [
+                    _buildDesktopTile(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _buildExperienceCard(
+                              'MOBILE APPLICATION DEVELOPER',
+                              'BIM GROUPS OF COMPANY',
+                              'March 2024 - Present',
+                              isHighlighted: true,
+                            ),
+                          ),
+                          Container(
+                            height: 2,
+                            width: 40,
+                            color: Colors.grey[700],
+                          ),
+                        ],
+                      ),
+                      isFirst: true,
+                      highlight: true,
+                      startChild: true,
+                    ),
+                    _buildDesktopTile(
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 2,
+                            width: 40,
+                            color: Colors.grey[700],
+                          ),
+                          Expanded(
+                            child: _buildExperienceCard(
+                              'JUNIOR FULL STACK DEVELOPER',
+                              'MYANMAR INFORMATION TECHNOLOGY',
+                              'November 2022 - February 2024',
+                              isHighlighted: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                      startChild: false,
+                    ),
+                    _buildDesktopTile(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _buildExperienceCard(
+                              'NOC & OPERATION ENGINEER',
+                              'MAHAR NET ISP COMPANY LIMITED',
+                              'August 2021 - October 2022',
+                              isHighlighted: false,
+                            ),
+                          ),
+                          Container(
+                            height: 2,
+                            width: 40,
+                            color: Colors.grey[700],
+                          ),
+                        ],
+                      ),
+                      startChild: true,
+                    ),
+                    _buildDesktopTile(
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 2,
+                            width: 40,
+                            color: Colors.grey[700],
+                          ),
+                          Expanded(
+                            child: _buildExperienceCard(
+                              'INTERNSHIP',
+                              'TRUST CORE ICT COMPANY LIMITED',
+                              'April 2020 - July 2020',
+                              isHighlighted: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                      startChild: false,
+                      isLast: true,
+                    ),
+                  ],
                 ),
-              ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -229,9 +191,10 @@ class WorkExperienceSection extends StatelessWidget {
     String company,
     String dates, {
     required bool isHighlighted,
+    bool isMobile = false,
   }) {
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: EdgeInsets.all(isMobile ? 18 : 25),
       decoration: BoxDecoration(
         color: isHighlighted
             ? KStyle.cPinkOrgColor
@@ -262,7 +225,7 @@ class WorkExperienceSection extends StatelessWidget {
             jobTitle,
             style: KStyle.paraTitleTextStyle.copyWith(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: isMobile ? 16 : 18,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -274,7 +237,7 @@ class WorkExperienceSection extends StatelessWidget {
             company,
             style: KStyle.paragraphTextStyle.copyWith(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: isMobile ? 15 : 16,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -286,11 +249,81 @@ class WorkExperienceSection extends StatelessWidget {
             dates,
             style: KStyle.paragraphTextStyle.copyWith(
               color: isHighlighted ? Colors.white : Colors.grey[400],
-              fontSize: 14,
+              fontSize: isMobile ? 13 : 14,
             ),
           ),
         ],
       ),
     );
   }
+
+  TimelineTile _buildDesktopTile({
+    required Widget child,
+    bool isFirst = false,
+    bool isLast = false,
+    bool highlight = false,
+    required bool startChild,
+  }) {
+    return TimelineTile(
+      alignment: TimelineAlign.manual,
+      lineXY: 0.5,
+      isFirst: isFirst,
+      isLast: isLast,
+      indicatorStyle: IndicatorStyle(
+        width: 20,
+        height: 20,
+        indicator: Container(
+          decoration: BoxDecoration(
+            color: highlight ? KStyle.cPinkOrgColor : Colors.grey[800],
+            shape: BoxShape.circle,
+            border: highlight
+                ? null
+                : Border.all(color: Colors.grey[600]!, width: 1),
+            boxShadow: highlight
+                ? [
+                    BoxShadow(
+                      color: KStyle.cPinkOrgColor.withOpacity(0.6),
+                      blurRadius: 15,
+                      spreadRadius: 2,
+                    ),
+                  ]
+                : null,
+          ),
+        ),
+      ),
+      beforeLineStyle: LineStyle(
+        color: Colors.grey[700]!,
+        thickness: 3,
+      ),
+      afterLineStyle: LineStyle(
+        color: Colors.grey[700]!,
+        thickness: 3,
+      ),
+      startChild: startChild ? child : const SizedBox.shrink(),
+      endChild: startChild ? const SizedBox.shrink() : child,
+    );
+  }
+
+  static const List<Map<String, String>> _experiences = [
+    {
+      'title': 'MOBILE APPLICATION DEVELOPER',
+      'company': 'BIM GROUPS OF COMPANY',
+      'dates': 'March 2024 - Present',
+    },
+    {
+      'title': 'JUNIOR FULL STACK DEVELOPER',
+      'company': 'MYANMAR INFORMATION TECHNOLOGY',
+      'dates': 'November 2022 - February 2024',
+    },
+    {
+      'title': 'NOC & OPERATION ENGINEER',
+      'company': 'MAHAR NET ISP COMPANY LIMITED',
+      'dates': 'August 2021 - October 2022',
+    },
+    {
+      'title': 'INTERNSHIP',
+      'company': 'TRUST CORE ICT COMPANY LIMITED',
+      'dates': 'April 2020 - July 2020',
+    },
+  ];
 }

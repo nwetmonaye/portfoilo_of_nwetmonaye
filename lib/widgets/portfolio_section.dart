@@ -6,123 +6,101 @@ class PortfolioSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        children: [
-          // Section Title
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isMobile = constraints.maxWidth < 768;
+        final bool isTablet = constraints.maxWidth < 1100 && !isMobile;
+        final int crossAxisCount = isMobile
+            ? 1
+            : isTablet
+                ? 2
+                : 3;
+
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 18 : 40,
+            vertical: isMobile ? 30 : 40,
+          ),
+          child: Column(
             children: [
-              Text(
-                'MY ',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 48,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'MY ',
+                    style: KStyle.titleTextStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: isMobile ? 28 : 48,
+                    ),
+                  ),
+                  Text(
+                    'PORTFOLIO',
+                    style: KStyle.titleTextStyle.copyWith(
+                      color: KStyle.cPinkOrgColor,
+                      fontSize: isMobile ? 28 : 48,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'PORTFOLIO',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: KStyle.cPinkOrgColor,
-                  fontSize: 48,
+
+              SizedBox(height: isMobile ? 28 : 80),
+
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _projects.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                  crossAxisSpacing: isMobile ? 16 : 32,
+                  mainAxisSpacing: isMobile ? 16 : 32,
+                  childAspectRatio: isMobile ? 0.95 : 1.2,
+                ),
+                itemBuilder: (context, index) {
+                  final project = _projects[index];
+                  return _buildPortfolioCard(
+                    context,
+                    project['title']!,
+                    project['image']!,
+                    project['desc']!,
+                    isHighlighted: project['highlight'] == 'true',
+                    isMobile: isMobile,
+                  );
+                },
+              ),
+
+              SizedBox(height: isMobile ? 28 : 60),
+
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 26 : 40,
+                  vertical: isMobile ? 12 : 15,
+                ),
+                decoration: BoxDecoration(
+                  color: KStyle.c25BlackColor,
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: Colors.grey[700]!, width: 1),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 18,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  'VIEW MORE',
+                  style: KStyle.paraTitleTextStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: isMobile ? 14 : 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
           ),
-
-          const SizedBox(height: 80),
-
-          // Portfolio Grid
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            crossAxisSpacing: 40,
-            mainAxisSpacing: 40,
-            childAspectRatio: 1.2,
-            children: [
-              _buildPortfolioCard(
-                context,
-                'Tun Commercial Bank',
-                'assets/images/tunbank.png',
-                'The mobile banking app provides a variety of convenient functionalitiees. These include the opotion to transfer funds between your own accounts, send money to other accounts, add funds to your account, access detailed account information, and review your account transactions.',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'YadanarBon Bank',
-                'assets/images/yadanarbon.png',
-                'The mobile banking app provides a variety of convenient functionalitiees. These include the opotion to transfer funds between your own accounts, send money to other accounts, add funds to your account, access detailed account information, and review your account transactions.',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'SEDONA',
-                'assets/images/sedona.png',
-                'In Sedona Hotel Yangon Loyalty Program, where your loyalty is rewarded with exclusive benefits and personalized services. As a member, you will enjoy a host of privileges designed to enhance your stay with us, including: Special room rates and upgrades, Early check-in and late check-out, Access to members-only promotions and events and Complimentary services',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'VITELLE',
-                'assets/images/vitelle.png',
-                'Vitelle empowers women to take control of their well-being through personalized health plans, crafted to meet the unique needs of the female body at every stage of life. Combining sports science, biometrics, and expert insights, Vitelle helps you uncover your body\'s specific requirements and equips you with the tools to address them effectively.',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'UNDP',
-                'assets/images/eLearning.png',
-                'This eLearning Portal is a training platform created by UNDP Myanmar in collaboration with experts and supporters, with a focus on enhancing the capacity development of Micro, Small, and Medium Enterprises (MSMEs) in Myanmar.',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'Form',
-                'assets/images/formflow.png',
-                'FormFlow is designed for organizations, educators, and businesses that need a robust solution for form creation, data collection, and workflow management across multiple platforms.',
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'Smart Taung Thu',
-                'assets/images/sead.png',
-                "The app aims to modernize Myanmar's agricultural sector by providing digital tools for better decision-making, market access, and knowledge sharing within the farming community.Comming soon!",
-                isHighlighted: false,
-              ),
-              _buildPortfolioCard(
-                context,
-                'Gem Map',
-                'assets/images/gemmap.png',
-                "Gem Map is a premium mobile marketplace designed to bridge the gap between discerning collectors and Myanmar’s elite jewelry and gemstone industry. The platform provides a secure, visually-driven ecosystem for exploring authenticated gems, connecting with verified sellers, and managing custom jewelry requests.Comming soon!",
-                isHighlighted: false,
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 60),
-
-          // View More Button
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-            decoration: BoxDecoration(
-              color: KStyle.c25BlackColor,
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Colors.grey[700]!, width: 1),
-            ),
-            child: Text(
-              'VIEW MORE',
-              style: KStyle.paraTitleTextStyle.copyWith(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -132,6 +110,7 @@ class PortfolioSection extends StatelessWidget {
     String imagePath,
     String description, {
     required bool isHighlighted,
+    bool isMobile = false,
   }) {
     return GestureDetector(
       onTap: () => _showPortfolioDetail(context, title, imagePath, description),
@@ -163,7 +142,6 @@ class PortfolioSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Portfolio Image Section (Top 60%)
             Expanded(
               flex: 7,
               child: Container(
@@ -185,7 +163,6 @@ class PortfolioSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Gradient overlay for better text readability
                     Positioned(
                       bottom: 0,
                       left: 0,
@@ -212,45 +189,37 @@ class PortfolioSection extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Portfolio Content Section (Bottom 40%)
             Expanded(
               flex: 4,
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 8,
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 14 : 20,
+                  vertical: isMobile ? 6 : 8,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Title
                     Text(
                       title,
                       style: KStyle.paraTitleTextStyle.copyWith(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: isMobile ? 16 : 20,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
-                    // Description
                     Expanded(
                       child: Text(
                         description,
                         style: KStyle.paragraphTextStyle.copyWith(
                           color: Colors.grey[400],
-                          fontSize: 14,
+                          fontSize: isMobile ? 12.5 : 14,
                           height: 1.4,
                         ),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-
-                    // Click indicator
                     const SizedBox(height: 12),
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
@@ -292,14 +261,10 @@ class PortfolioSection extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 4),
-                          AnimatedRotation(
-                            duration: const Duration(milliseconds: 200),
-                            turns: 0,
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: KStyle.cPinkOrgColor,
-                              size: 10,
-                            ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: KStyle.cPinkOrgColor,
+                            size: 10,
                           ),
                         ],
                       ),
@@ -323,11 +288,13 @@ class PortfolioSection extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final bool isMobile = MediaQuery.of(context).size.width < 768;
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width * (isMobile ? 0.95 : 0.8),
+            height:
+                MediaQuery.of(context).size.height * (isMobile ? 0.75 : 0.7),
             decoration: BoxDecoration(
               color: KStyle.c26BlackColor,
               borderRadius: BorderRadius.circular(20),
@@ -335,9 +302,8 @@ class PortfolioSection extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Header with close button
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(isMobile ? 14 : 20),
                   decoration: BoxDecoration(
                     color: KStyle.cPinkOrgColor.withOpacity(0.1),
                     borderRadius: const BorderRadius.only(
@@ -353,7 +319,7 @@ class PortfolioSection extends StatelessWidget {
                           title,
                           style: KStyle.paraTitleTextStyle.copyWith(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: isMobile ? 18 : 24,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -366,28 +332,25 @@ class PortfolioSection extends StatelessWidget {
                             color: KStyle.cPinkOrgColor,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.close,
                             color: Colors.white,
-                            size: 20,
+                            size: isMobile ? 18 : 20,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                // Content
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(30),
+                    padding: EdgeInsets.all(isMobile ? 18 : 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Image
                         Container(
                           width: double.infinity,
-                          height: 200,
+                          height: isMobile ? 180 : 200,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
@@ -396,26 +359,21 @@ class PortfolioSection extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 30),
-
-                        // Description
+                        SizedBox(height: isMobile ? 20 : 30),
                         Text(
                           'Project Description',
                           style: KStyle.paraTitleTextStyle.copyWith(
                             color: KStyle.cPinkOrgColor,
-                            fontSize: 20,
+                            fontSize: isMobile ? 18 : 20,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-
-                        const SizedBox(height: 15),
-
+                        const SizedBox(height: 12),
                         Text(
                           description,
                           style: KStyle.paragraphTextStyle.copyWith(
                             color: Colors.grey[300],
-                            fontSize: 16,
+                            fontSize: isMobile ? 14 : 16,
                             height: 1.6,
                           ),
                         ),
@@ -430,4 +388,63 @@ class PortfolioSection extends StatelessWidget {
       },
     );
   }
+
+  static const List<Map<String, String>> _projects = [
+    {
+      'title': 'Tun Commercial Bank',
+      'image': 'assets/images/tunbank.png',
+      'desc':
+          'Transfer funds, check balances, and review transactions effortlessly through a refined mobile banking journey.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'YadanarBon Bank',
+      'image': 'assets/images/yadanarbon.png',
+      'desc':
+          'Mobile banking with streamlined payments, beneficiary management, and clear transaction history.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'SEDONA',
+      'image': 'assets/images/sedona.png',
+      'desc':
+          'Loyalty program with special rates, upgrades, and members-only perks for Sedona Hotel Yangon guests.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'VITELLE',
+      'image': 'assets/images/vitelle.png',
+      'desc':
+          'Personalized wellness companion blending sports science and biometrics to guide daily health.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'UNDP',
+      'image': 'assets/images/eLearning.png',
+      'desc':
+          'MSME-focused eLearning portal built with UNDP Myanmar to scale capacity development programs.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'Form',
+      'image': 'assets/images/formflow.png',
+      'desc':
+          'FormFlow powers creation, data collection, and workflow automation across platforms.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'Smart Taung Thu',
+      'image': 'assets/images/sead.png',
+      'desc':
+          'Digital tools for Myanmar farmers: better decisions, market access, and knowledge sharing.',
+      'highlight': 'false',
+    },
+    {
+      'title': 'Gem Map',
+      'image': 'assets/images/gemmap.png',
+      'desc':
+          'Premium marketplace connecting collectors with verified jewelers through immersive product storytelling.',
+      'highlight': 'true',
+    },
+  ];
 }

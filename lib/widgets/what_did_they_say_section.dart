@@ -52,148 +52,159 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
   Widget build(BuildContext context) {
     final currentTestimonial = _testimonials[_currentIndex];
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(40),
-      child: Column(
-        children: [
-          // Section Title
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isMobile = constraints.maxWidth < 768;
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 18 : 40,
+            vertical: isMobile ? 30 : 40,
+          ),
+          child: Column(
             children: [
-              Text(
-                'WHAT DID ',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 48,
-                ),
-              ),
-              Text(
-                'THEY SAY',
-                style: KStyle.titleTextStyle.copyWith(
-                  color: KStyle.cPinkOrgColor,
-                  fontSize: 48,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 60),
-
-          // Profile Image
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: KStyle.cWhiteColor, width: 3),
-              image: DecorationImage(
-                image: AssetImage(currentTestimonial['image']!),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          // Person Name
-          Text(
-            currentTestimonial['name']!,
-            style: KStyle.paraTitleTextStyle.copyWith(
-              color: KStyle.cWhiteColor,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-
-          const SizedBox(height: 15),
-
-          // Testimonial Title/Role
-          Text(
-            currentTestimonial['role']!,
-            style: KStyle.paraTitleTextStyle.copyWith(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          // Testimonial Text
-          Container(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Text(
-              currentTestimonial['text']!,
-              style: KStyle.paragraphTextStyle.copyWith(
-                color: Colors.white,
-                fontSize: 16,
-                height: 1.6,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-
-          const SizedBox(height: 50),
-
-          // Navigation Controls
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Left Arrow
-              GestureDetector(
-                onTap: _previousTestimonial,
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Icon(
-                    Icons.chevron_left,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-              ),
-
-              // Pagination Dots
               Row(
-                children: List.generate(
-                  _testimonials.length,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 7.5),
-                    width: 12,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: index == _currentIndex
-                          ? KStyle.cPinkOrgColor
-                          : Colors.grey[600],
-                      shape: BoxShape.circle,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'WHAT DID ',
+                    style: KStyle.titleTextStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: isMobile ? 26 : 48,
                     ),
                   ),
+                  Text(
+                    'THEY SAY',
+                    style: KStyle.titleTextStyle.copyWith(
+                      color: KStyle.cPinkOrgColor,
+                      fontSize: isMobile ? 26 : 48,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: isMobile ? 32 : 60),
+
+              Container(
+                width: isMobile ? 100 : 120,
+                height: isMobile ? 100 : 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: KStyle.cWhiteColor, width: 3),
+                  image: DecorationImage(
+                    image: AssetImage(currentTestimonial['image']!),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 20,
+                    ),
+                  ],
                 ),
               ),
 
-              // Right Arrow
-              GestureDetector(
-                onTap: _nextTestimonial,
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Icon(
-                    Icons.chevron_right,
-                    color: Colors.white,
-                    size: 30,
-                  ),
+              const SizedBox(height: 24),
+
+              Text(
+                currentTestimonial['name']!,
+                style: KStyle.paraTitleTextStyle.copyWith(
+                  color: KStyle.cWhiteColor,
+                  fontSize: isMobile ? 18 : 20,
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
+
+              const SizedBox(height: 10),
+
+              Text(
+                currentTestimonial['role']!,
+                style: KStyle.paraTitleTextStyle.copyWith(
+                  color: Colors.white,
+                  fontSize: isMobile ? 16 : 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Container(
+                constraints: BoxConstraints(maxWidth: isMobile ? 500 : 800),
+                child: Text(
+                  currentTestimonial['text']!,
+                  style: KStyle.paragraphTextStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: isMobile ? 14 : 16,
+                    height: 1.6,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+
+              SizedBox(height: isMobile ? 30 : 50),
+
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 18,
+                runSpacing: 12,
+                children: [
+                  _buildNavButton(
+                    icon: Icons.chevron_left,
+                    onTap: _previousTestimonial,
+                    isMobile: isMobile,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(
+                      _testimonials.length,
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 7.5),
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: index == _currentIndex
+                              ? KStyle.cPinkOrgColor
+                              : Colors.grey[600],
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                  ),
+                  _buildNavButton(
+                    icon: Icons.chevron_right,
+                    onTap: _nextTestimonial,
+                    isMobile: isMobile,
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNavButton({
+    required IconData icon,
+    required VoidCallback onTap,
+    required bool isMobile,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(isMobile ? 12 : 15),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(
+            color: Colors.white.withOpacity(0.08),
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: isMobile ? 24 : 30,
+        ),
       ),
     );
   }
