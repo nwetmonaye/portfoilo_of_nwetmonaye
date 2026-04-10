@@ -19,13 +19,13 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
       'text':
           'I confidently recommend Nwet Mon Aye as a junior developer. She is hardworking, reliable, and has demonstrated both technical ability and strong potential for growth. Any development team would benefit from having her.',
     },
-    // {
-    //   'name': 'Sarah Johnson',
-    //   'role': 'UI/UX DESIGN & PROTOTYPING',
-    //   'image': 'assets/images/profile.png',
-    //   'text':
-    //       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-    // },
+    {
+      'name': 'Thant Zin Linn',
+      'role': 'Senior Developer',
+      'image': 'assets/images/tzl.jpg',
+      'text':
+          'I am pleased to recommend Nwet Mon Aye, who worked as a Mobile Developer specializing in Flutter at MIT. They demonstrated strong skills in building cross-platform mobile applications, problem-solving, and writing clean, maintainable code. Nwet Mon Aye is responsible, detail-oriented, and works effectively both independently and within a team. I am confident they will be a valuable asset to any organization.',
+    },
     // {
     //   'name': 'Michael Chen',
     //   'role': 'MOBILE APP DEVELOPMENT',
