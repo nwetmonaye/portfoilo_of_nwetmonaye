@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/style.dart';
 
 class PortfolioSection extends StatelessWidget {
@@ -13,8 +14,8 @@ class PortfolioSection extends StatelessWidget {
         final int crossAxisCount = isMobile
             ? 1
             : isTablet
-                ? 2
-                : 3;
+            ? 2
+            : 3;
 
         return Container(
           width: double.infinity,
@@ -63,6 +64,8 @@ class PortfolioSection extends StatelessWidget {
                     project['title']!,
                     project['image']!,
                     project['desc']!,
+                    appStoreUrl: project['app'] ?? '',
+                    playStoreUrl: project['play'] ?? '',
                     isHighlighted: project['highlight'] == 'true',
                     isMobile: isMobile,
                   );
@@ -109,11 +112,20 @@ class PortfolioSection extends StatelessWidget {
     String title,
     String imagePath,
     String description, {
+    required String appStoreUrl,
+    required String playStoreUrl,
     required bool isHighlighted,
     bool isMobile = false,
   }) {
     return GestureDetector(
-      onTap: () => _showPortfolioDetail(context, title, imagePath, description),
+      onTap: () => _showPortfolioDetail(
+        context,
+        title,
+        imagePath,
+        description,
+        appStoreUrl: appStoreUrl,
+        playStoreUrl: playStoreUrl,
+      ),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
@@ -283,8 +295,10 @@ class PortfolioSection extends StatelessWidget {
     BuildContext context,
     String title,
     String imagePath,
-    String description,
-  ) {
+    String description, {
+    required String appStoreUrl,
+    required String playStoreUrl,
+  }) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -377,6 +391,30 @@ class PortfolioSection extends StatelessWidget {
                             height: 1.6,
                           ),
                         ),
+
+                        SizedBox(height: isMobile ? 18 : 26),
+
+                        Row(
+                          children: [
+                            if (appStoreUrl.isNotEmpty)
+                              _buildStoreButton(
+                                label: 'App Store',
+                                icon: Icons.apple,
+                                url: appStoreUrl,
+                                isMobile: isMobile,
+                              ),
+                            if (appStoreUrl.isNotEmpty &&
+                                playStoreUrl.isNotEmpty)
+                              const SizedBox(width: 12),
+                            if (playStoreUrl.isNotEmpty)
+                              _buildStoreButton(
+                                label: 'Play Store',
+                                icon: Icons.android_rounded,
+                                url: playStoreUrl,
+                                isMobile: isMobile,
+                              ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -389,12 +427,66 @@ class PortfolioSection extends StatelessWidget {
     );
   }
 
+  Widget _buildStoreButton({
+    required String label,
+    required IconData icon,
+    required String url,
+    required bool isMobile,
+  }) {
+    return GestureDetector(
+      onTap: () => _launchStore(url),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 16,
+          vertical: isMobile ? 8 : 10,
+        ),
+        decoration: BoxDecoration(
+          color: KStyle.c25BlackColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withOpacity(0.1)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: Colors.white, size: isMobile ? 18 : 20),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: KStyle.paragraphTextStyle.copyWith(
+                color: Colors.white,
+                fontSize: isMobile ? 13 : 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchStore(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
   static const List<Map<String, String>> _projects = [
     {
       'title': 'Tun Commercial Bank',
       'image': 'assets/images/tunbank.png',
       'desc':
           'Transfer funds, check balances, and review transactions effortlessly through a refined mobile banking journey.',
+      'app': 'https://apps.apple.com/vn/app/tcb-mbanking/id6450492816?l=vi',
+      'play':
+          'https://play.google.com/store/apps/details?id=com.tcb.app001&hl=en',
       'highlight': 'false',
     },
     {
@@ -402,6 +494,9 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/yadanarbon.png',
       'desc':
           'Mobile banking with streamlined payments, beneficiary management, and clear transaction history.',
+      'app': 'https://apps.apple.com/vn/app/ydnb-mbanking/id6608976031?l=vi',
+      'play':
+          'https://play.google.com/store/apps/details?id=com.ydnb.mbanking&hl=en',
       'highlight': 'false',
     },
     {
@@ -409,6 +504,10 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/sedona.png',
       'desc':
           'Loyalty program with special rates, upgrades, and members-only perks for Sedona Hotel Yangon guests.',
+      'app':
+          'https://apps.apple.com/vn/app/sedona-yangon-loyalty-program/id6502490113?l=vi',
+      'play':
+          'https://play.google.com/store/apps/details?id=com.sedona.keyloyalty&hl=en',
       'highlight': 'false',
     },
     {
@@ -416,6 +515,8 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/vitelle.png',
       'desc':
           'Personalized wellness companion blending sports science and biometrics to guide daily health.',
+      'app': '',
+      'play': '',
       'highlight': 'false',
     },
     {
@@ -423,6 +524,10 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/eLearning.png',
       'desc':
           'MSME-focused eLearning portal built with UNDP Myanmar to scale capacity development programs.',
+      'app':
+          'https://apps.apple.com/vn/app/elearning-portal-for-msmes/id6742404634?l=vi',
+      'play':
+          'https://play.google.com/store/search?q=elearning+portal+for+msmes&c=apps&hl=en',
       'highlight': 'false',
     },
     {
@@ -430,6 +535,8 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/formflow.png',
       'desc':
           'FormFlow powers creation, data collection, and workflow automation across platforms.',
+      'app': 'https://formflow-b0484.web.app/',
+      'play': 'https://formflow-b0484.web.app/',
       'highlight': 'false',
     },
     {
@@ -437,6 +544,9 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/sead.png',
       'desc':
           'Digital tools for Myanmar farmers: better decisions, market access, and knowledge sharing.',
+      'app': 'https://apps.apple.com/vn/app/smart-taung-thu/id6744342459?l=vi',
+      'play':
+          'https://play.google.com/store/apps/details?id=org.undp.mm.sead&hl=en',
       'highlight': 'false',
     },
     {
@@ -444,6 +554,8 @@ class PortfolioSection extends StatelessWidget {
       'image': 'assets/images/gemmap.png',
       'desc':
           'Premium marketplace connecting collectors with verified jewelers through immersive product storytelling.',
+      'app': '',
+      'play': '',
       'highlight': 'true',
     },
   ];
