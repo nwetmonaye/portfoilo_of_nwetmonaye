@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,8 +13,9 @@ class ProfileSection extends StatelessWidget {
       builder: (context, constraints) {
         bool isMobile = constraints.maxWidth < 768;
         final bool isDark = Theme.of(context).brightness == Brightness.dark;
-        final Color paragraphTextColor =
-            isDark ? Colors.white : Colors.black87.withOpacity(0.8);
+        final Color paragraphTextColor = isDark
+            ? Colors.white
+            : Colors.black87.withOpacity(0.8);
 
         return Container(
           width: double.infinity,
@@ -22,14 +24,8 @@ class ProfileSection extends StatelessWidget {
             children: [
               // Main Profile Content
               isMobile
-                  ? _buildMobileProfileContent(
-                      paragraphTextColor,
-                      isDark,
-                    )
-                  : _buildDesktopProfileContent(
-                      paragraphTextColor,
-                      isDark,
-                    ),
+                  ? _buildMobileProfileContent(paragraphTextColor, isDark)
+                  : _buildDesktopProfileContent(paragraphTextColor, isDark),
 
               SizedBox(height: isMobile ? 40 : 80),
 
@@ -56,10 +52,7 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileProfileContent(
-    Color paragraphTextColor,
-    bool isDark,
-  ) {
+  Widget _buildMobileProfileContent(Color paragraphTextColor, bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -169,10 +162,7 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
-  Widget _buildDesktopProfileContent(
-    Color paragraphTextColor,
-    bool isDark,
-  ) {
+  Widget _buildDesktopProfileContent(Color paragraphTextColor, bool isDark) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -266,38 +256,47 @@ class ProfileSection extends StatelessWidget {
 
   Widget _buildMobileTechIcons(bool isDark) {
     return SizedBox(
-      height: 80,
+      height: kIsWeb ? 64 : 52,
       child: ListView(
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         children: [
           _buildMobileTechIconWithLabel(
             'assets/images/flutter.png',
             'Flutter',
             isDark,
           ),
-          const SizedBox(width: 20),
-          _buildMobileTechIconWithLabel('assets/images/java.png', 'Java', isDark),
-          const SizedBox(width: 20),
-          _buildMobileTechIconWithLabel('assets/images/dart.png', 'Dart', isDark),
-          const SizedBox(width: 20),
+          const SizedBox(width: 12),
+          _buildMobileTechIconWithLabel(
+            'assets/images/java.png',
+            'Java',
+            isDark,
+          ),
+          const SizedBox(width: 12),
+          _buildMobileTechIconWithLabel(
+            'assets/images/dart.png',
+            'Dart',
+            isDark,
+          ),
+          const SizedBox(width: 12),
           _buildMobileTechIconWithLabel(
             'assets/images/firebase.png',
             'Firebase',
             isDark,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 12),
           _buildMobileTechIconWithLabel(
             'assets/images/vscode.png',
             'VS Code',
             isDark,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 12),
           _buildMobileTechIconWithLabel(
             'assets/images/nodejs.png',
             'Node.js',
             isDark,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 12),
           _buildMobileTechIconWithLabel(
             'assets/images/angular.png',
             'Angular',
@@ -313,41 +312,57 @@ class ProfileSection extends StatelessWidget {
     String label,
     bool isDark,
   ) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: isDark ? Colors.white.withOpacity(0.1) : Colors.grey[200],
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isDark ? Colors.white.withOpacity(0.08) : Colors.black12,
+    final Color chipBg = isDark ? Colors.white.withOpacity(0.08) : Colors.white;
+    final Color borderColor = isDark
+        ? Colors.white.withOpacity(0.14)
+        : Colors.grey.shade300;
+    final Color labelColor = isDark ? Colors.white : Colors.black87;
+    // Light logos on pale chips disappear; a dark icon well keeps PNGs readable in light theme.
+    final Color iconWellBg = isDark
+        ? Colors.white.withOpacity(0.12)
+        : const Color(0xFF2D2D2D);
+    final double well = kIsWeb ? 48 : 36;
+    final double wellPad = kIsWeb ? 5 : 6;
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(8, kIsWeb ? 8 : 6, 12, kIsWeb ? 8 : 6),
+      decoration: BoxDecoration(
+        color: chipBg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          if (!isDark)
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(isDark ? 0.18 : 0.08),
-                blurRadius: 10,
-                offset: const Offset(0, 5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: well,
+            height: well,
+            padding: EdgeInsets.all(wellPad),
+            decoration: BoxDecoration(
+              color: iconWellBg,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Image.asset(imgPath, fit: BoxFit.contain),
           ),
-        ),
-        // const SizedBox(height: 8),
-        // Text(
-        //   label,
-        //   style: KStyle.paragraphTextStyle.copyWith(
-        //     color: Colors.white,
-        //     fontSize: 12,
-        //     fontWeight: FontWeight.w500,
-        //   ),
-        // ),
-      ],
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: KStyle.paragraphTextStyle.copyWith(
+              color: labelColor,
+              fontSize: kIsWeb ? 14 : 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -366,8 +381,7 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialIcon(String iconPath, String url,
-      {required bool isDark}) {
+  Widget _buildSocialIcon(String iconPath, String url, {required bool isDark}) {
     return GestureDetector(
       onTap: () async {
         final Uri uri = Uri.parse(url);
@@ -394,15 +408,26 @@ class ProfileSection extends StatelessWidget {
   }
 
   Widget _buildTechIcon(String imgPath, bool isDark) {
+    final Color iconWellBg = isDark
+        ? Colors.transparent
+        : const Color(0xFF2D2D2D);
+    // Web: larger drawable area — raster assets looked tiny in wide layouts.
+    final double box = kIsWeb ? 58 : 38;
+    final double innerPad = kIsWeb ? 5 : 6;
+    final double cardPad = kIsWeb ? 10 : 14;
+    final double outerPad = kIsWeb ? 8 : 12;
+
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(outerPad),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(cardPad),
         decoration: BoxDecoration(
-          color: isDark ? Colors.white.withOpacity(0.06) : Colors.grey[200],
+          color: isDark ? Colors.white.withOpacity(0.06) : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isDark ? Colors.white.withOpacity(0.08) : Colors.black12,
+            color: isDark
+                ? Colors.white.withOpacity(0.08)
+                : Colors.grey.shade300,
           ),
           boxShadow: [
             BoxShadow(
@@ -412,7 +437,16 @@ class ProfileSection extends StatelessWidget {
             ),
           ],
         ),
-        child: Image.asset(imgPath, height: 38, fit: BoxFit.contain),
+        child: Container(
+          height: box,
+          width: box,
+          padding: EdgeInsets.all(innerPad),
+          decoration: BoxDecoration(
+            color: iconWellBg,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Image.asset(imgPath, fit: BoxFit.contain),
+        ),
       ),
     );
   }
