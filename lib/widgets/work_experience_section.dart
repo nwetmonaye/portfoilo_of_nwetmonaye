@@ -90,6 +90,7 @@ class WorkExperienceSection extends StatelessWidget {
                                 isHighlighted: highlighted,
                                 cardColor: cardColor,
                                 textPrimary: textPrimary,
+                                isDark: isDark,
                                 isMobile: true,
                               ),
                             ),
@@ -113,6 +114,7 @@ class WorkExperienceSection extends StatelessWidget {
                               isHighlighted: true,
                               cardColor: cardColor,
                               textPrimary: textPrimary,
+                              isDark: isDark,
                             ),
                           ),
                           Container(
@@ -143,6 +145,7 @@ class WorkExperienceSection extends StatelessWidget {
                               isHighlighted: false,
                               cardColor: cardColor,
                               textPrimary: textPrimary,
+                              isDark: isDark,
                             ),
                           ),
                         ],
@@ -161,6 +164,7 @@ class WorkExperienceSection extends StatelessWidget {
                               isHighlighted: false,
                               cardColor: cardColor,
                               textPrimary: textPrimary,
+                              isDark: isDark,
                             ),
                           ),
                           Container(
@@ -189,6 +193,7 @@ class WorkExperienceSection extends StatelessWidget {
                               isHighlighted: false,
                               cardColor: cardColor,
                               textPrimary: textPrimary,
+                              isDark: isDark,
                             ),
                           ),
                         ],
@@ -213,6 +218,7 @@ class WorkExperienceSection extends StatelessWidget {
     required bool isHighlighted,
     required Color cardColor,
     required Color textPrimary,
+    required bool isDark,
     bool isMobile = false,
   }) {
     return Container(
@@ -243,7 +249,7 @@ class WorkExperienceSection extends StatelessWidget {
           Text(
             jobTitle,
             style: KStyle.paraTitleTextStyle.copyWith(
-              color: Colors.white,
+              color: isHighlighted ? Colors.white : textPrimary,
               fontSize: isMobile ? 16 : 18,
               fontWeight: FontWeight.w700,
             ),
@@ -261,7 +267,9 @@ class WorkExperienceSection extends StatelessWidget {
           Text(
             dates,
             style: KStyle.paragraphTextStyle.copyWith(
-              color: isHighlighted ? Colors.white : Colors.grey[400],
+              color: isHighlighted
+                  ? Colors.white
+                  : (isDark ? Colors.grey[400]! : Colors.black54),
               fontSize: isMobile ? 13 : 14,
             ),
           ),
