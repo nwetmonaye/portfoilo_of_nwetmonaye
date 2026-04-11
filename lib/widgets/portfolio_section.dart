@@ -15,8 +15,8 @@ class PortfolioSection extends StatelessWidget {
         final int crossAxisCount = isMobile
             ? 1
             : isTablet
-                ? 2
-                : 3;
+            ? 2
+            : 3;
 
         return Container(
           width: double.infinity,
@@ -75,32 +75,32 @@ class PortfolioSection extends StatelessWidget {
 
               SizedBox(height: isMobile ? 28 : 60),
 
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 26 : 40,
-                  vertical: isMobile ? 12 : 15,
-                ),
-                decoration: BoxDecoration(
-                  color: KStyle.c25BlackColor,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(color: Colors.grey[700]!, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      blurRadius: 18,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  'VIEW MORE',
-                  style: KStyle.paraTitleTextStyle.copyWith(
-                    color: Colors.white,
-                    fontSize: isMobile ? 14 : 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: isMobile ? 26 : 40,
+              //     vertical: isMobile ? 12 : 15,
+              //   ),
+              //   decoration: BoxDecoration(
+              //     color: KStyle.c25BlackColor,
+              //     borderRadius: BorderRadius.circular(25),
+              //     border: Border.all(color: Colors.grey[700]!, width: 1),
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: Colors.black.withOpacity(0.25),
+              //         blurRadius: 18,
+              //         offset: const Offset(0, 10),
+              //       ),
+              //     ],
+              //   ),
+              //   child: Text(
+              //     'VIEW MORE',
+              //     style: KStyle.paraTitleTextStyle.copyWith(
+              //       color: Colors.white,
+              //       fontSize: isMobile ? 14 : 16,
+              //       fontWeight: FontWeight.w600,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         );
@@ -131,7 +131,7 @@ class PortfolioSection extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-            color: isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white,
+          color: isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: isHighlighted
               ? Border.all(color: KStyle.cPinkOrgColor, width: 2)
@@ -153,11 +153,11 @@ class PortfolioSection extends StatelessWidget {
                   ),
                 ],
         ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 7,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 7,
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(

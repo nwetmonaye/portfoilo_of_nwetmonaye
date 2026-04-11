@@ -156,6 +156,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
                     icon: Icons.chevron_left,
                     onTap: _previousTestimonial,
                     isMobile: isMobile,
+                    isDark: isDark,
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -178,6 +179,7 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
                     icon: Icons.chevron_right,
                     onTap: _nextTestimonial,
                     isMobile: isMobile,
+                    isDark: isDark,
                   ),
                 ],
               ),
@@ -192,21 +194,29 @@ class _WhatDidTheySaySectionState extends State<WhatDidTheySaySection> {
     required IconData icon,
     required VoidCallback onTap,
     required bool isMobile,
+    required bool isDark,
   }) {
+    final Color iconColor =
+        isDark ? Colors.white : Colors.black87;
+    final Color bgColor = isDark
+        ? Colors.white.withOpacity(0.1)
+        : Colors.grey.shade200;
+    final Color borderColor = isDark
+        ? Colors.white.withOpacity(0.2)
+        : Colors.grey.shade400;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(isMobile ? 12 : 15),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: bgColor,
           borderRadius: BorderRadius.circular(50),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.08),
-          ),
+          border: Border.all(color: borderColor),
         ),
         child: Icon(
           icon,
-          color: Colors.white,
+          color: iconColor,
           size: isMobile ? 24 : 30,
         ),
       ),

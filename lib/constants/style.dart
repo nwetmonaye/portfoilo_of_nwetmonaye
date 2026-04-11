@@ -7,6 +7,9 @@ class KStyle {
   static Color c25BlackColor = const Color(0xFF252525);
   static Color cWhiteColor = const Color(0xFFFFFFFF);
 
+  /// Light-theme nav bar: soft tint so the pill separates from the white page gradient.
+  static Color navBarLightSurface = const Color(0xFFF2EDF0);
+
   static TextStyle headingTextStyle = const TextStyle(
     fontSize: 110,
     fontFamily: 'Poppins',

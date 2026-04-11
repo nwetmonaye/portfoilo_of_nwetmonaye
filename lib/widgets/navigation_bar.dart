@@ -56,15 +56,32 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     }
   }
 
+  BoxDecoration _navBarDecoration(bool isDark) {
+    return BoxDecoration(
+      color: isDark ? KStyle.c25BlackColor : KStyle.navBarLightSurface,
+      borderRadius: BorderRadius.circular(50),
+      border: Border.all(
+        color: isDark
+            ? Colors.white.withOpacity(0.06)
+            : Colors.black.withOpacity(0.06),
+      ),
+      boxShadow: [
+        if (!isDark)
+          BoxShadow(
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+      ],
+    );
+  }
+
   Widget _buildMobileNavBar(BuildContext context, String currentSection) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      decoration: BoxDecoration(
-        color: isDark ? KStyle.c25BlackColor : Colors.white,
-        borderRadius: BorderRadius.circular(50),
-      ),
+      decoration: _navBarDecoration(isDark),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,7 +133,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     _isDrawerOpen = true;
                   });
                 },
-                child: const Icon(Icons.menu, color: Colors.white, size: 24),
+                child: Icon(
+                  Icons.menu,
+                  color: isDark ? Colors.white : Colors.black87,
+                  size: 24,
+                ),
               ),
             ],
           ),
@@ -137,10 +158,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            decoration: BoxDecoration(
-              color: isDark ? KStyle.c25BlackColor : Colors.white,
-              borderRadius: BorderRadius.circular(50),
-            ),
+            decoration: _navBarDecoration(isDark),
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,9 +217,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                           _isDrawerOpen = false;
                         });
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.close,
-                        color: Colors.white,
+                        color: isDark ? Colors.white : Colors.black87,
                         size: 24,
                       ),
                     ),
@@ -261,10 +279,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-      decoration: BoxDecoration(
-        color: isDark ? KStyle.c25BlackColor : Colors.white,
-        borderRadius: BorderRadius.circular(50),
-      ),
+      decoration: _navBarDecoration(isDark),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         children: [
