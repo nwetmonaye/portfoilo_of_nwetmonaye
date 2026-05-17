@@ -150,7 +150,7 @@ class _PortfolioViewState extends State<PortfolioView> {
                     themeMode: widget.themeMode,
                     onNavItemTap: (section) {
                       switch (section) {
-                        case 'Profile':
+                        case 'Setting':
                           _scrollToSection(_profileKey);
                           break;
                         case 'What I Do':
