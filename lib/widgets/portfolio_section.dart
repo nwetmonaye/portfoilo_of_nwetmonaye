@@ -60,15 +60,21 @@ class PortfolioSection extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final project = _projects[index];
-                  return _buildPortfolioCard(
-                    context,
-                    project['title']!,
-                    project['image']!,
-                    project['desc']!,
-                    appStoreUrl: project['app'] ?? '',
-                    playStoreUrl: project['play'] ?? '',
+                  return _AnimatedPortfolioCard(
+                    index: index,
+                    title: project['title']!,
+                    imagePath: project['image']!,
+                    description: project['desc']!,
                     isHighlighted: project['highlight'] == 'true',
                     isMobile: isMobile,
+                    onTap: () => _showPortfolioDetail(
+                      context,
+                      project['title']!,
+                      project['image']!,
+                      project['desc']!,
+                      appStoreUrl: project['app'] ?? '',
+                      playStoreUrl: project['play'] ?? '',
+                    ),
                   );
                 },
               ),
@@ -105,191 +111,6 @@ class PortfolioSection extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildPortfolioCard(
-    BuildContext context,
-    String title,
-    String imagePath,
-    String description, {
-    required String appStoreUrl,
-    required String playStoreUrl,
-    required bool isHighlighted,
-    bool isMobile = false,
-  }) {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return GestureDetector(
-      onTap: () => _showPortfolioDetail(
-        context,
-        title,
-        imagePath,
-        description,
-        appStoreUrl: appStoreUrl,
-        playStoreUrl: playStoreUrl,
-      ),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: isDark ? KStyle.cWhiteColor.withOpacity(0.1) : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: isHighlighted
-              ? Border.all(color: KStyle.cPinkOrgColor, width: 2)
-              : Border.all(color: Colors.transparent, width: 2),
-          boxShadow: isHighlighted
-              ? [
-                  BoxShadow(
-                    color: KStyle.cPinkOrgColor.withOpacity(0.3),
-                    blurRadius: 20,
-                    spreadRadius: 2,
-                  ),
-                ]
-              : [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 7,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: AssetImage(imagePath),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(15),
-                          ),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.3),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 14 : 20,
-                  vertical: isMobile ? 6 : 8,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: KStyle.paraTitleTextStyle.copyWith(
-                        color: isDark ? Colors.white : Colors.black87,
-                        fontSize: isMobile ? 16 : 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: Text(
-                        description,
-                        style: KStyle.paragraphTextStyle.copyWith(
-                          color: isDark ? Colors.grey[400] : Colors.black54,
-                          fontSize: isMobile ? 12.5 : 14,
-                          height: 1.4,
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: KStyle.cPinkOrgColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                          color: KStyle.cPinkOrgColor.withOpacity(0.3),
-                          width: 1,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: KStyle.cPinkOrgColor.withOpacity(0.1),
-                            blurRadius: 4,
-                            spreadRadius: 0,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.visibility_outlined,
-                            color: KStyle.cPinkOrgColor,
-                            size: 14,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'View Details',
-                            style: KStyle.paragraphTextStyle.copyWith(
-                              color: KStyle.cPinkOrgColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: KStyle.cPinkOrgColor,
-                            size: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -562,4 +383,276 @@ class PortfolioSection extends StatelessWidget {
       'highlight': 'true',
     },
   ];
+}
+
+class _AnimatedPortfolioCard extends StatefulWidget {
+  final int index;
+  final String title;
+  final String imagePath;
+  final String description;
+  final bool isHighlighted;
+  final bool isMobile;
+  final VoidCallback onTap;
+
+  const _AnimatedPortfolioCard({
+    required this.index,
+    required this.title,
+    required this.imagePath,
+    required this.description,
+    required this.isHighlighted,
+    required this.isMobile,
+    required this.onTap,
+  });
+
+  @override
+  State<_AnimatedPortfolioCard> createState() => _AnimatedPortfolioCardState();
+}
+
+class _AnimatedPortfolioCardState extends State<_AnimatedPortfolioCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _entranceController;
+  late final Animation<double> _fadeAnimation;
+  late final Animation<Offset> _slideAnimation;
+  bool _hovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _entranceController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 550),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _entranceController,
+      curve: Curves.easeOutCubic,
+    );
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _entranceController,
+      curve: Curves.easeOutCubic,
+    ));
+
+    Future<void>.delayed(Duration(milliseconds: 70 * widget.index), () {
+      if (mounted) _entranceController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _entranceController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final Color accent = KStyle.cPinkOrgColor;
+    final bool showHighlight = widget.isHighlighted || _hovered;
+
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _hovered = true),
+          onExit: (_) => setState(() => _hovered = false),
+          child: AnimatedScale(
+            scale: _hovered ? 1.03 : 1.0,
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            child: GestureDetector(
+              onTap: widget.onTap,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? KStyle.cWhiteColor.withOpacity(0.1)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: showHighlight
+                      ? Border.all(
+                          color: accent.withOpacity(_hovered ? 0.9 : 1),
+                          width: _hovered ? 2.5 : 2,
+                        )
+                      : Border.all(
+                          color: _hovered
+                              ? accent.withOpacity(0.35)
+                              : Colors.transparent,
+                          width: 2,
+                        ),
+                  boxShadow: showHighlight || _hovered
+                      ? [
+                          BoxShadow(
+                            color: accent.withOpacity(_hovered ? 0.35 : 0.3),
+                            blurRadius: _hovered ? 28 : 20,
+                            spreadRadius: _hovered ? 3 : 2,
+                            offset: Offset(0, _hovered ? 12 : 8),
+                          ),
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.12),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ]
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        child: Stack(
+                          children: [
+                            AnimatedScale(
+                              scale: _hovered ? 1.04 : 1.0,
+                              duration: const Duration(milliseconds: 350),
+                              curve: Curves.easeOutCubic,
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                    image: AssetImage(widget.imagePath),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.black.withOpacity(0.3),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: widget.isMobile ? 14 : 20,
+                          vertical: widget.isMobile ? 6 : 8,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.title,
+                              style: KStyle.paraTitleTextStyle.copyWith(
+                                color: isDark ? Colors.white : Colors.black87,
+                                fontSize: widget.isMobile ? 16 : 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Expanded(
+                              child: Text(
+                                widget.description,
+                                style: KStyle.paragraphTextStyle.copyWith(
+                                  color: isDark
+                                      ? Colors.grey[400]
+                                      : Colors.black54,
+                                  fontSize: widget.isMobile ? 12.5 : 14,
+                                  height: 1.4,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 220),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: accent.withOpacity(_hovered ? 0.2 : 0.1),
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: accent.withOpacity(
+                                    _hovered ? 0.55 : 0.3,
+                                  ),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.visibility_outlined,
+                                    color: accent,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'View Details',
+                                    style: KStyle.paragraphTextStyle.copyWith(
+                                      color: accent,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  AnimatedSlide(
+                                    offset: _hovered
+                                        ? const Offset(0.15, 0)
+                                        : Offset.zero,
+                                    duration:
+                                        const Duration(milliseconds: 220),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: accent,
+                                      size: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

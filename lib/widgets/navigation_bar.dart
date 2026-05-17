@@ -254,6 +254,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   const SizedBox(height: 25),
                   _buildMobileNavItem(
                     context,
+                    'EDUCATION',
+                    'Education',
+                    currentSection,
+                  ),
+                  const SizedBox(height: 25),
+                  _buildMobileNavItem(
+                    context,
                     'EXPERIENCE',
                     'Work Experience',
                     currentSection,
@@ -306,6 +313,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   context,
                   'Testimonials',
                   'Testimonials',
+                  currentSection,
+                ),
+                const SizedBox(width: 40),
+                _buildNavItem(
+                  context,
+                  'Education',
+                  'Education',
                   currentSection,
                 ),
                 const SizedBox(width: 40),

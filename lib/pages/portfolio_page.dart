@@ -8,6 +8,7 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/profile_section.dart';
 import '../widgets/what_i_do_section.dart';
 import '../widgets/what_did_they_say_section.dart';
+import '../widgets/education_section.dart';
 import '../widgets/work_experience_section.dart';
 import '../widgets/portfolio_section.dart';
 import '../widgets/contact_section.dart';
@@ -40,6 +41,7 @@ class _PortfolioViewState extends State<PortfolioView> {
   final GlobalKey _profileKey = GlobalKey();
   final GlobalKey _whatIDoKey = GlobalKey();
   final GlobalKey _testimonialsKey = GlobalKey();
+  final GlobalKey _educationKey = GlobalKey();
   final GlobalKey _workExperienceKey = GlobalKey();
   final GlobalKey _portfolioKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
@@ -129,6 +131,9 @@ class _PortfolioViewState extends State<PortfolioView> {
                       // What Did They Say Section
                       WhatDidTheySaySection(key: _testimonialsKey),
 
+                      // Education Section
+                      EducationSection(key: _educationKey),
+
                       // Work Experience Section
                       WorkExperienceSection(key: _workExperienceKey),
 
@@ -158,6 +163,9 @@ class _PortfolioViewState extends State<PortfolioView> {
                           break;
                         case 'Testimonials':
                           _scrollToSection(_testimonialsKey);
+                          break;
+                        case 'Education':
+                          _scrollToSection(_educationKey);
                           break;
                         case 'Work Experience':
                           _scrollToSection(_workExperienceKey);

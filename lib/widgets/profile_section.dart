@@ -254,64 +254,60 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
+  static const List<Map<String, String>> _technologies = [
+    {'image': 'assets/images/flutter.png', 'label': 'Flutter'},
+    {'image': 'assets/images/java.png', 'label': 'Java'},
+    {'image': 'assets/images/dart.png', 'label': 'Dart'},
+    {'image': 'assets/images/firebase.png', 'label': 'Firebase'},
+    {'image': 'assets/images/vscode.png', 'label': 'VS Code'},
+    {'image': 'assets/images/nodejs.png', 'label': 'Node.js'},
+    {'image': 'assets/images/angular.png', 'label': 'Angular'},
+  ];
+
   Widget _buildMobileTechIcons(bool isDark) {
     return SizedBox(
-      height: kIsWeb ? 64 : 52,
+      height: kIsWeb ? 64 : 56,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 2),
         children: [
-          _buildMobileTechIconWithLabel(
-            'assets/images/flutter.png',
-            'Flutter',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/java.png',
-            'Java',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/dart.png',
-            'Dart',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/firebase.png',
-            'Firebase',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/vscode.png',
-            'VS Code',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/nodejs.png',
-            'Node.js',
-            isDark,
-          ),
-          const SizedBox(width: 12),
-          _buildMobileTechIconWithLabel(
-            'assets/images/angular.png',
-            'Angular',
-            isDark,
-          ),
+          for (int i = 0; i < _technologies.length; i++) ...[
+            if (i > 0) const SizedBox(width: 12),
+            _buildTechChip(
+              _technologies[i]['image']!,
+              _technologies[i]['label']!,
+              isDark,
+              compact: !kIsWeb,
+            ),
+          ],
         ],
       ),
     );
   }
 
-  Widget _buildMobileTechIconWithLabel(
+  Widget _buildDesktopTechIcons(bool isDark) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 20,
+      runSpacing: 16,
+      children: _technologies
+          .map(
+            (tech) => _buildTechChip(
+              tech['image']!,
+              tech['label']!,
+              isDark,
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Widget _buildTechChip(
     String imgPath,
     String label,
-    bool isDark,
-  ) {
+    bool isDark, {
+    bool compact = false,
+  }) {
     final Color chipBg = isDark ? Colors.white.withOpacity(0.08) : Colors.white;
     final Color borderColor = isDark
         ? Colors.white.withOpacity(0.14)
@@ -321,11 +317,16 @@ class ProfileSection extends StatelessWidget {
     final Color iconWellBg = isDark
         ? Colors.white.withOpacity(0.12)
         : const Color(0xFF2D2D2D);
-    final double well = kIsWeb ? 48 : 36;
-    final double wellPad = kIsWeb ? 5 : 6;
+    final double well = compact ? 36 : (kIsWeb ? 48 : 40);
+    final double wellPad = compact ? 6 : (kIsWeb ? 5 : 6);
 
     return Container(
-      padding: EdgeInsets.fromLTRB(8, kIsWeb ? 8 : 6, 12, kIsWeb ? 8 : 6),
+      padding: EdgeInsets.fromLTRB(
+        8,
+        compact ? 6 : (kIsWeb ? 8 : 7),
+        12,
+        compact ? 6 : (kIsWeb ? 8 : 7),
+      ),
       decoration: BoxDecoration(
         color: chipBg,
         borderRadius: BorderRadius.circular(12),
@@ -357,27 +358,12 @@ class ProfileSection extends StatelessWidget {
             label,
             style: KStyle.paragraphTextStyle.copyWith(
               color: labelColor,
-              fontSize: kIsWeb ? 14 : 13,
+              fontSize: compact ? 12.5 : (kIsWeb ? 14 : 13),
               fontWeight: FontWeight.w600,
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDesktopTechIcons(bool isDark) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildTechIcon('assets/images/flutter.png', isDark),
-        _buildTechIcon('assets/images/java.png', isDark),
-        _buildTechIcon('assets/images/dart.png', isDark),
-        _buildTechIcon('assets/images/firebase.png', isDark),
-        _buildTechIcon('assets/images/vscode.png', isDark),
-        _buildTechIcon('assets/images/nodejs.png', isDark),
-        _buildTechIcon('assets/images/angular.png', isDark),
-      ],
     );
   }
 
@@ -407,47 +393,4 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTechIcon(String imgPath, bool isDark) {
-    final Color iconWellBg = isDark
-        ? Colors.transparent
-        : const Color(0xFF2D2D2D);
-    // Web: larger drawable area — raster assets looked tiny in wide layouts.
-    final double box = kIsWeb ? 58 : 38;
-    final double innerPad = kIsWeb ? 5 : 6;
-    final double cardPad = kIsWeb ? 10 : 14;
-    final double outerPad = kIsWeb ? 8 : 12;
-
-    return Padding(
-      padding: EdgeInsets.all(outerPad),
-      child: Container(
-        padding: EdgeInsets.all(cardPad),
-        decoration: BoxDecoration(
-          color: isDark ? Colors.white.withOpacity(0.06) : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isDark
-                ? Colors.white.withOpacity(0.08)
-                : Colors.grey.shade300,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.2 : 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Container(
-          height: box,
-          width: box,
-          padding: EdgeInsets.all(innerPad),
-          decoration: BoxDecoration(
-            color: iconWellBg,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Image.asset(imgPath, fit: BoxFit.contain),
-        ),
-      ),
-    );
-  }
 }
